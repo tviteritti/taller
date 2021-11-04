@@ -1,21 +1,35 @@
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-const AWS = require('aws-sdk');
-const request = require('request');
-const jwkToPem = require('jwk-to-pem');
-const jwt = require('jsonwebtoken');
-global.fetch = require('node-fetch');
+require('./config/conexion');
 
-const poolData = {    
-    UserPoolId : "us-east-2_wOdUv5xvk", // Your user pool id here    
-    ClientId: "2umq93aialvav4ude9na1eqhvi" // Your client id here    
-    }; 
-const pool_region = 'us-east-2';
+const express = require('express');
 
-const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+const port = (process.env.PORT || 3000);
+
+const app = express();
+
+app.use(express.json());
+
+app.set('port', port);
+
+app.use('/api', require('./rutas'))
 
 
-function RegisterUser(){
+
+
+app.listen(app.get('port'), (error) => {
+    if (error) {
+        console.log('error' + error);
+        
+    } else {
+        console.log('Example app listening on port 3000!' + port)
+        
+    }
+});
+
+
+
+
+
+/*function RegisterUser(){
     var attributeList = [];
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"name",Value:"Prasad Jayashanka"}));
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"preferred_username",Value:"jay"}));
@@ -63,3 +77,4 @@ function Login() {
 
 //RegisterUser();
 Login();
+*/
