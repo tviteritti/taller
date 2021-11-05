@@ -1,0 +1,42 @@
+<form action="http://localhost:3000/api/register" method="post" >
+    <section>
+      <div class="container-fluid">
+             
+            </div>
+    
+    
+            <div class="col-md-12 bg-light text-center">
+                <div class="login d-flex align-items-center py-5 ">
+                    <div class="container">
+                        <div class="row">
+                            <div class=" col-xl-7 mx-auto ">
+                                <h3 class="display-4">¡Ingrese sus datos!</h3>
+                                  <br>
+                                <div class="form-group mb-3">       
+                                    <input [(ngModel)]="register.email" type="email" id="typeEmailX" name="email" placeholder="Correo electrónico" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4"/>
+                                  </div>
+                                    <div class="form-group mb-3">
+                                      <input [(ngModel)]="register.username" type="text" id="typeusernamelX" placeholder="Usuario" class="form-control form-control-lg" name="username" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4"/>
+    
+                                    </div>
+                                    <div class="form-group mb-3">
+                                      <input [(ngModel)]="register.password" type="password" id="typePasswordX"  name="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"/>
+                                    </div>
+                                
+                                    <button (click)="registerPost()" type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrar</button>
+                                    <div>
+                                      <br>
+                                      <p class="mb-0 text-center">¿Ya estas registrado? <a href="/login" class="text-primary-50 fw-bold">Login</a></p>
+                                    </div>
+    
+                                  </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+    </div>
+    
+    </section>
+    
+    </form>
