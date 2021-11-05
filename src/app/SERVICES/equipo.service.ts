@@ -6,7 +6,7 @@ import{HttpClient} from '@angular/common/http';
 })
 export class EquipoService {
 
-  url= '/api';
+  url= '/api/login';
   constructor(private http: HttpClient) { }
 
   login(user:User) {
