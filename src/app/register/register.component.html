@@ -1,0 +1,19 @@
+<form  action="http://localhost:3000/api/register"   method="post">
+    <ul>
+     <li>
+       <label for="username">Nombre:</label>
+       <input type="text" id="username" name="username">
+     </li>
+     <li>
+       <label for="email">Correo electrónico:</label>
+       <input type="email" id="email" name="email">
+     </li>
+     <li>
+       <label for="msg">Password:</label>
+       <input type="password" id="password" name="password">
+     </li>
+     <li>
+         <input type="submit" (click)="registerPost()" name="Send"/>
+     </li>
+    </ul>
+   </form>

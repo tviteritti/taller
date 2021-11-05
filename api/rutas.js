@@ -16,7 +16,7 @@ const pool_region = 'us-east-2';
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-rutas.post('/', function (req, res) {
+rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
     const { email, username, password } = req.body;
     console.log(email);
@@ -43,6 +43,40 @@ rutas.post('/', function (req, res) {
 
     });
 });
+
+rutas.post('/register', function (req, res) {
+    console.log("pase por el post de register bro")
+    const { email, username, password } = res.body;
+    var attributeList = [];
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:email}));
+   // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"preferred_username",Value:"jay"}));
+    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"gender",Value:"male"}));
+    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"birthdate",Value:"1991-06-21"}));
+    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"address",Value:"CMB"}));
+    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:"sampleEmail@gmail.com"}));
+   // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:"+5412614324321"}));
+    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:scope",Value:"admin"}));
+    
+    userPool.signUp(username, password, attributeList, null, 
+    function(err, result){
+        if (err) {
+            console.log(err);
+            return;
+        }
+        cognitoUser = result.user;
+        console.log('user name is ' + cognitoUser.getUsername());
+    });
+});
+
+rutas.get('/login', function (req, res) {
+    /* res.send('hola inicio'); */
+    console.log(req.body);
+    
+   console.log("get bro login");
+});
+console.log("get bro login");
+
+
 
 
 module.exports = rutas;
