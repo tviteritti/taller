@@ -45,8 +45,9 @@ rutas.post('/login', function (req, res) {
 });
 
 rutas.post('/register', function (req, res) {
+    const { email, username, password } = req.body;
     console.log("pase por el post de register bro")
-    const { email, username, password } = res.body;
+    
     var attributeList = [];
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:email}));
    // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"preferred_username",Value:"jay"}));
