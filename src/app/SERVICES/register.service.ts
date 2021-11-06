@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import{HttpClient} from '@angular/common/http';
-
 @Injectable({
   providedIn: 'root'
 })
-export class EquipoService {
+export class RegisterService {
 
-  url= '/api/login';
+  url= '/api/register';
   constructor(private http: HttpClient) { }
 
-  login(user:User) {
-    return this.http.post(this.url, user);
+  register(register:IRegister) {
+      console.log("pase por aca");
+    return this.http.post(this.url,register);
   }
+ 
 }
-
-export interface User{
+export interface IRegister{
   username: string;
   email: string;
   password: string;
