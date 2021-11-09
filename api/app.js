@@ -18,10 +18,10 @@ app.use('/api', require('./rutas'))
 app.listen(app.get('port'), (error) => {
     if (error) {
         console.log('error' + error);
-        
+
     } else {
-        console.log('Example app listening on port 3000!' + port)
-        
+        console.log('Example app listening on port ' + port)
+
     }
 });
 
@@ -39,8 +39,8 @@ app.listen(app.get('port'), (error) => {
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:"sampleEmail@gmail.com"}));
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:"+5412614324321"}));
     //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:scope",Value:"admin"}));
-    
-    userPool.signUp('taller21@gmail.com', 'TallerPassword#123', attributeList, null, 
+
+    userPool.signUp('taller21@gmail.com', 'TallerPassword#123', attributeList, null,
     function(err, result){
         if (err) {
             console.log(err);
