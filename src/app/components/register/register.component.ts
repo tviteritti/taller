@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService, IRegister } from '../../SERVICES/register.service'
 import {Router } from '@angular/router';
+import Auth from '@aws-amplify/auth';
 
 @Component({
   selector: 'app-register',
@@ -20,11 +21,19 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   registerPost(){
-    this.RegisterService.register(this.register).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => console.log(err)
-    );
+    try {
+      const user = Auth.signUp({
+        username: this.register.username,
+        password: this.register.password,
+        attributes: {
+          email: this.register.email
+        }
+      });
+      console.log({user});
+      alert('User signup, verify email')
+      this.router.navigate(['login']);
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

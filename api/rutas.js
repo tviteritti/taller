@@ -8,10 +8,10 @@ const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
 global.fetch = require('node-fetch');
 
-const poolData = {    
-   UserPoolId : "us-east-2_wOdUv5xvk", // Your user pool id here    
-   ClientId: "2umq93aialvav4ude9na1eqhvi" // Your client id here    
-   }; 
+const poolData = {
+   UserPoolId : "us-east-2_wOdUv5xvk", // Your user pool id here
+   ClientId: "2umq93aialvav4ude9na1eqhvi" // Your client id here
+   };
 const pool_region = 'us-east-2';
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -20,7 +20,7 @@ rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
     const { email, username, password } = req.body;
     console.log(email);
-    
+
      var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
         Username : username,
         Password : password,
@@ -36,6 +36,7 @@ rutas.post('/login', function (req, res) {
             console.log('access token + ' + result.getAccessToken().getJwtToken());
             console.log('id token + ' + result.getIdToken().getJwtToken());
             console.log('refresh token + ' + result.getRefreshToken().getToken());
+
         },
         onFailure: function(err) {
             console.log(err);
@@ -47,7 +48,7 @@ rutas.post('/login', function (req, res) {
 rutas.post('/register', function (req, res) {
     const { email, username, password } = req.body;
     console.log("pase por el post de register bro")
-    
+
     var attributeList = [];
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:email}));
    // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"preferred_username",Value:"jay"}));
@@ -57,8 +58,8 @@ rutas.post('/register', function (req, res) {
     //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:"sampleEmail@gmail.com"}));
    // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:"+5412614324321"}));
     //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:scope",Value:"admin"}));
-    
-    userPool.signUp(username, password, attributeList, null, 
+
+    userPool.signUp(username, password, attributeList, null,
     function(err, result){
         if (err) {
             console.log(err);
@@ -72,7 +73,7 @@ rutas.post('/register', function (req, res) {
 rutas.get('/login', function (req, res) {
     /* res.send('hola inicio'); */
     console.log(req.body);
-    
+
    console.log("get bro login");
 });
 console.log("get bro login");

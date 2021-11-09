@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EquipoService, User } from '../../SERVICES/equipo.service'
-import {Router } from '@angular/router';
+import { User } from '../../SERVICES/equipo.service'
+import { Router } from '@angular/router';
+import Auth from '@aws-amplify/auth';
+
 
 @Component({
   selector: 'app-login',
@@ -15,19 +17,24 @@ export class LoginComponent implements OnInit {
     password: ""
   };
 
-  constructor(private EquipoService:EquipoService, private router:Router) { }
+  constructor(private router:Router) { }
 
 
   ngOnInit(): void {
   }
 
-  login(){
-    this.EquipoService.login(this.user).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => console.log(err)
-    );
+   async login(){
+    try {
+      var user = await Auth.signIn(this.user.email.toString(), this.user.password.toString());
+      console.log('Email = ' + this.user.email + ' pass= ' + this.user.password);
+      var tokens =  user.signInUserSession;
+      if(tokens != null){
+        console.log('User authenticated');
+        this.router.navigate(['home']);
+      }
+    }catch (error){
+      alert(error);
+    }
   }
 
 }
