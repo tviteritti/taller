@@ -1,19 +1,8 @@
 const rutas = require('express').Router();
 require("dotenv").config();
+
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-const AWS = require('aws-sdk');
-const request = require('request');
-const jwkToPem = require('jwk-to-pem');
-const jwt = require('jsonwebtoken');
-fs = require("fs");
-
-var fs = require('fs');
-var path = require('path');
-const productModel = require("./models/productModel");
-
-global.fetch = require('node-fetch');
-
 const poolData = {
    UserPoolId : "us-east-2_wOdUv5xvk", // Your user pool id here
    ClientId: "2umq93aialvav4ude9na1eqhvi" // Your client id here
@@ -21,6 +10,20 @@ const poolData = {
 const pool_region = 'us-east-2';
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+//const AWS = require('aws-sdk');
+//const request = require('request');
+//const jwkToPem = require('jwk-to-pem');
+//const jwt = require('jsonwebtoken');
+
+fs = require("fs");
+var fs = require('fs');
+
+var path = require('path');
+
+const productModel = require("./models/productModel");
+
+global.fetch = require('node-fetch');
+
 
 rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
