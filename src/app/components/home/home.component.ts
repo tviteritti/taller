@@ -1,7 +1,6 @@
-
 import { Component, OnInit } from '@angular/core';
-
-
+import { ProductosService, IProducts } from '../../SERVICES/productos.service'
+import {Router } from '@angular/router';
 
 
 
@@ -9,13 +8,26 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
+
 export class HomeComponent implements OnInit {
-
-  constructor() { }
-
+ products:any = [];
+  constructor(private ProductosService:ProductosService, private router:Router) { }
+ 
   ngOnInit(): void {
   }
 
 
-
+   obtener():any {
+     console.log("llegue component front")
+     this.products= this.ProductosService.obtener().subscribe(data => {   // data is already a JSON object
+      console.log(data);
+      this.obtenerJson(data)
+      return JSON.stringify(data);
+  });
+    console.log(this.products);
+  }
+  obtenerJson(products:any){
+   console.log(products);
+  }
+  
 }

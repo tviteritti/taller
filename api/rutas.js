@@ -1,11 +1,17 @@
 const rutas = require('express').Router();
-
+require("dotenv").config();
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 const AWS = require('aws-sdk');
 const request = require('request');
 const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
+fs = require("fs");
+
+var fs = require('fs');
+var path = require('path');
+const productModel = require("./models/productModel");
+
 global.fetch = require('node-fetch');
 
 const poolData = {
@@ -76,9 +82,14 @@ rutas.get('/login', function (req, res) {
 
    console.log("get bro login");
 });
-console.log("get bro login");
 
 
+rutas.get("/product",async (req, res) => {
+    console.log("pase por el backkkkkkkkkkkkkkkkkkkkkkkkkkk")
+      const producto = await productModel.obtener();
+      res.json(producto);
+  });
 
 
+  
 module.exports = rutas;

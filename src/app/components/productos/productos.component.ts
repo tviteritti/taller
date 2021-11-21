@@ -29,7 +29,7 @@ export class ProductosComponent implements OnInit {
   }
 
   async obtenerProductos() {
-    this.productos = await this.productosService.obtenerProductos();
+    await this.productosService.obtenerProductos();
   }
 
   navegarAFormulario() {
