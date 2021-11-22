@@ -9,7 +9,7 @@ import {ProductosService} from "../../SERVICES/productos.service";
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
-  productoModel = new Producto("", "","","","");
+  productoModel = new Producto("", "","","");
 
 
   constructor(private productosService: ProductosService) {
@@ -34,7 +34,8 @@ export class AgregarProductoComponent implements OnInit {
     this.cargando = true;
     // Guardamos producto
     console.log(this.productoModel)
-    const finalizado=   this.productosService.agregarProducto(this.productoModel);
+    const idProductoGuardado= this.productosService.agregarProducto(this.productoModel);
+
     // Y luego las fotos
     //const fd = new FormData();
 

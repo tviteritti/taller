@@ -16,7 +16,6 @@ module.exports = {
           console.log("llegue a resultados arriba" + resultados)
           if (err) reject(err);
           else resolve(resultados.insertId);
-         
         });
 
         console.log(resolve + " resolveee")
