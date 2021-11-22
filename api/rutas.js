@@ -1,25 +1,8 @@
 const rutas = require('express').Router();
 require("dotenv").config();
-<<<<<<< HEAD
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-const AWS = require('aws-sdk');
-const request = require('request');
-const jwkToPem = require('jwk-to-pem');
-const jwt = require('jsonwebtoken');
-fs = require("fs");
-
-var fs = require('fs');
-var path = require('path');
-const productModel = require("./models/productModel");
-
-global.fetch = require('node-fetch');
-
-=======
 
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
->>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687
 const poolData = {
    UserPoolId : "us-east-2_wOdUv5xvk", // Your user pool id here
    ClientId: "2umq93aialvav4ude9na1eqhvi" // Your client id here
@@ -36,13 +19,30 @@ fs = require("fs");
 var fs = require('fs');
 
 var path = require('path');
+const session = require("express-session");
 
 const productModel = require("./models/productModel");
 const ventaModel = require("./models/ventas_model");
-
+const clienteModel = require("./models/clientes_model");
+const productoVendidoModel = require("./models/producto_vendido_model");
 global.fetch = require('node-fetch');
 
-
+rutas.use(session({
+    secret: '1234',
+    saveUninitialized: true,
+    resave: false,
+  }))
+ /* rutas.use(carrito.initialize());
+  rutas.use(carrito.session());
+  rutas.use(session(
+         '1234'
+    ));*/
+const indiceDeProducto = (carrito, idProducto) => {
+    return carrito.findIndex(productoDentroDelCarrito => productoDentroDelCarrito.id === idProducto);
+  }
+  const existeProducto = (carrito, producto) => {
+    return indiceDeProducto(carrito, producto.id) !== -1;
+  }
 rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
     const { email, username, password } = req.body;
@@ -109,22 +109,70 @@ rutas.get("/product",async (req, res) => {
     console.log("pase por el backkkkkkkkkkkkkkkkkkkkkkkkkkk")
       const producto = await productModel.obtener();
       res.json(producto);
-<<<<<<< HEAD
-=======
 });
+rutas.post("/product",async (req, res) => {
+    console.log("pase por el product post")
 
+    const producto = req.body;
+    const respuesta = await productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio);
+    res.json(respuesta);
+});
+rutas.get("/ventas", async (req, res) => {
+    const ventas = await ventaModel.obtener();
+    res.json(ventas);
+  });  
+rutas.post("/compra", async (req, res) => {
+    const {nombre, direccion} = req.body;
+    let total = 0;
   
-rutas.post("/carrito", async (req, res) => {
-    const id = req.body.id;
-     const producto = await ventaModel.obtenerProductosVendidos(id);
-      res.json(producto);
->>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687
+    const carrito = req.session.carrito || [];
+    carrito.forEach(p => total += p.precio);
+    const idCliente = await clienteModel.insertar(nombre, direccion);
+    const idVenta = await ventaModel.insertar(idCliente, total);
+    // usamos for en lugar de foreach por el await
+    for (let m = 0; m < carrito.length; m++) {
+      const productoActual = carrito[m];
+      await productoVendidoModel.insertar(idVenta, productoActual.id);
+    }
+    // Limpiar carrito...
+    req.session.carrito = [];
+    // ¡listo!
+    res.json(true);
   });
-
-
+rutas.post("/detalle_venta", async (req, res) => {
+    if (!req.query.id) {
+        res.end("Not found");
+        return;
+      }
+      const idVenta = req.query.id;
+      const venta = await ventaModel.obtenerPorId(idVenta);
+      venta.productos = await ventaModel.obtenerProductosVendidos(idVenta);
+      res.json(venta);
+  });
+  rutas.get("/carrito", (req, res) => {
+    res.json(req.session.carrito || []);
+  })
   
-<<<<<<< HEAD
+  rutas.post("/carrito/existe", async (req, res) => {
+    const idProducto = req.body.id;
+    const producto = await productModel.obtenerPorId(idProducto);
+    const existe = existeProducto(req.session.carrito || [], producto);
+    res.json(existe);
+  });
+  
+  rutas.post("/carrito/agregar", async (req, res) => {
+    const idProducto = req.body.id;
+    const producto = await productModel.obtenerPorId(idProducto);
+    if (!req.session.carrito) {
+      req.session.carrito = [];
+    }
+    // por el momento no se pueden llevar más de dos productos iguales
+    if (existeProducto(req.session.carrito, producto)) {
+      res.json(true);
+      return;
+    }
+    req.session.carrito.push(producto);
+    res.json(req.body);
+  });
+  
 module.exports = rutas;
-=======
-module.exports = rutas;
->>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687

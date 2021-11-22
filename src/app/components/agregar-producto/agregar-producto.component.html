@@ -1,0 +1,33 @@
+  <h1>Agregar producto</h1>
+  <p>
+
+      <input  [(ngModel)]="productoModel.nombre"
+             type="text"
+             placeholder="Nombre">
+
+  </p>
+  <p>
+
+    <input  [(ngModel)]="productoModel.clasificacion"
+           type="text"
+           placeholder="Clasificacion">
+
+</p>
+  <p>
+
+      <textarea rows="10"  [(ngModel)]="productoModel.descripcion"
+                placeholder="Descripción"></textarea>
+
+  </p>
+  <p>
+
+      <input  [(ngModel)]="productoModel.precio"
+             type="number"
+             placeholder="Precio">
+
+  </p>
+
+  <p>
+    <button texto="Guardar" (click)="guardar()">Guardar</button>
+    <a routerLink="/home" mat-raised-button color="primary" style="margin-left: 10px">Volver</a>
+  </p>

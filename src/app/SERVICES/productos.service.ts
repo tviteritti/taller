@@ -14,13 +14,13 @@ export class ProductosService {
   }
 
   public async eliminarProducto(idProducto:any) {
-    return await this.http.delete("/producto?id=".concat(idProducto));
+    return await this.http.delete("/product?id=".concat(idProducto));
   }
 
-  public async agregarProducto(producto: Producto) {
-    return await this.http.post("/producto", producto);
-  }
 
+  public  agregarProducto(producto: Producto) {
+    return this.http.post(this.url,producto);
+  }
   /*
   El formdata debe tener el id del producto
    
@@ -29,7 +29,7 @@ export class ProductosService {
   }
 */
   public async obtenerProductos() {
-    return await this.http.get("/productos");
+    return await this.http.get("/product");
   }
 
   public async obtenerProductosConFotos() {
@@ -37,9 +37,9 @@ export class ProductosService {
   }
 
   public async obtenerProductoConFotosPorId(idProducto:any) {
-    return await this.http.get("/producto?id=".concat(idProducto));
+    return await this.http.get("/product?id=".concat(idProducto));
   }
-
+ 
   public obtener() {
   console.log("llegue a service front ")
   

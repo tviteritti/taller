@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.set('port', port);
 
+
 app.use('/api', require('./rutas'))
 
 app.use((req, res, next) => {
@@ -19,7 +20,6 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
-
 
 
 app.listen(app.get('port'), (error) => {

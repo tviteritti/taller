@@ -22,6 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
 import Amplify from '@aws-amplify/core';
 import { ProductosComponent } from './components/productos/productos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 
 
 
@@ -50,7 +51,8 @@ Amplify.configure({
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ProductosComponent
+    ProductosComponent,
+    AgregarProductoComponent
   ],
   imports: [
     BrowserModule,
