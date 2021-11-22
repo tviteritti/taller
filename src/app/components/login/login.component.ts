@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../SERVICES/equipo.service'
+import { User } from '../../SERVICES/login.service'
 import { Router } from '@angular/router';
 import Auth from '@aws-amplify/auth';
 
