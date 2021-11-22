@@ -4,7 +4,7 @@ import{HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class EquipoService {
+export class LoginService {
 
   url= '/api/login';
   constructor(private http: HttpClient) { }
