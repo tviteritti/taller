@@ -18,11 +18,18 @@ import {MatBadgeModule} from "@angular/material/badge";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 import Amplify from '@aws-amplify/core';
 import { ProductosComponent } from './components/productos/productos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
+import { TarjetaProductoComponent } from './components/tarjeta-producto/tarjeta-producto.component';
+import { TiendaComponent } from './components/tienda/tienda.component';
+import { DetalleDeProductoComponent } from './components/detalle-de-producto/detalle-de-producto.component';
 
 
 
@@ -52,7 +59,10 @@ Amplify.configure({
     RegisterComponent,
     HomeComponent,
     ProductosComponent,
-    AgregarProductoComponent
+    AgregarProductoComponent,
+    TarjetaProductoComponent,
+    TiendaComponent,
+    DetalleDeProductoComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +80,9 @@ Amplify.configure({
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatChipsModule
 
   ],
   providers: [],
