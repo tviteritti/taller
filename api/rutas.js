@@ -1,5 +1,6 @@
 const rutas = require('express').Router();
 require("dotenv").config();
+<<<<<<< HEAD
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 const AWS = require('aws-sdk');
@@ -14,6 +15,11 @@ const productModel = require("./models/productModel");
 
 global.fetch = require('node-fetch');
 
+=======
+
+const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
+>>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687
 const poolData = {
    UserPoolId : "us-east-2_wOdUv5xvk", // Your user pool id here
    ClientId: "2umq93aialvav4ude9na1eqhvi" // Your client id here
@@ -21,6 +27,21 @@ const poolData = {
 const pool_region = 'us-east-2';
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+//const AWS = require('aws-sdk');
+//const request = require('request');
+//const jwkToPem = require('jwk-to-pem');
+//const jwt = require('jsonwebtoken');
+
+fs = require("fs");
+var fs = require('fs');
+
+var path = require('path');
+
+const productModel = require("./models/productModel");
+const ventaModel = require("./models/ventas_model");
+
+global.fetch = require('node-fetch');
+
 
 rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
@@ -88,8 +109,22 @@ rutas.get("/product",async (req, res) => {
     console.log("pase por el backkkkkkkkkkkkkkkkkkkkkkkkkkk")
       const producto = await productModel.obtener();
       res.json(producto);
+<<<<<<< HEAD
+=======
+});
+
+  
+rutas.post("/carrito", async (req, res) => {
+    const id = req.body.id;
+     const producto = await ventaModel.obtenerProductosVendidos(id);
+      res.json(producto);
+>>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687
   });
 
 
   
+<<<<<<< HEAD
 module.exports = rutas;
+=======
+module.exports = rutas;
+>>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687

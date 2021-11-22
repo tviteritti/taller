@@ -34,8 +34,6 @@ app.listen(app.get('port'), (error) => {
 
 
 
-
-
 /*function RegisterUser(){
     var attributeList = [];
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"name",Value:"Prasad Jayashanka"}));
