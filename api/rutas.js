@@ -21,6 +21,7 @@ var fs = require('fs');
 var path = require('path');
 
 const productModel = require("./models/productModel");
+const ventaModel = require("./models/ventas_model");
 
 global.fetch = require('node-fetch');
 
@@ -90,6 +91,13 @@ rutas.get('/login', function (req, res) {
 rutas.get("/product",async (req, res) => {
     console.log("pase por el backkkkkkkkkkkkkkkkkkkkkkkkkkk")
       const producto = await productModel.obtener();
+      res.json(producto);
+});
+
+  
+rutas.post("/carrito", async (req, res) => {
+    const id = req.body.id;
+     const producto = await ventaModel.obtenerProductosVendidos(id);
       res.json(producto);
   });
 

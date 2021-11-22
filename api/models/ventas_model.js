@@ -1,5 +1,5 @@
 
-const conexion = require("./conexion")
+const conexion = require("../config/conexion")
 module.exports = {
   obtenerProductosVendidos(idVenta) {
     return new Promise((resolve, reject) => {

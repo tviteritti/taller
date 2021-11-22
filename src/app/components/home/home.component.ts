@@ -1,33 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService, IProducts } from '../../SERVICES/productos.service'
+import { VentaService } from '../../SERVICES/venta.service';
+import { ProductosService, IProducts } from '../../SERVICES/productos.service';
 import {Router } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent implements OnInit {
- products:any = [];
-  constructor(private ProductosService:ProductosService, private router:Router) { }
+ productos:any = [];
+  constructor(private ProductosService:ProductosService, private VentaService:VentaService,private router:Router) { }
  
   ngOnInit(): void {
+    this.VentaService.obtener(1).subscribe(data => {   // data is already a JSON object
+      this.productos = data;
+      });
+  }
+  public total() {
+    // Quién te conoce reduce
+    let total = 0;
+    this.productos.forEach((p: { precio: number; }) => total += p.precio);
+    return total;
   }
 
 
    obtener():any {
      console.log("llegue component front")
-     this.products= this.ProductosService.obtener().subscribe(data => {   // data is already a JSON object
-      console.log(data);
-      this.obtenerJson(data)
-      return JSON.stringify(data);
+     this.ProductosService.obtener().subscribe(data => {   // data is already a JSON object
+       this.productos = data;
   });
-    console.log(this.products);
   }
-  obtenerJson(products:any){
-   console.log(products);
+  obtenerJson(){
+   console.log(this.productos);
   }
   
 }

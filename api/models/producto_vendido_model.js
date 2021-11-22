@@ -1,5 +1,5 @@
 
-const conexion = require("./conexion")
+const conexion = require("../config/conexion")
 module.exports = {
   insertar(idVenta, idProducto) {
     return new Promise((resolve, reject) => {
