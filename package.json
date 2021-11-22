@@ -21,7 +21,11 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "aws-amplify": "^4.3.4",
+<<<<<<< HEAD
+    "dotenv": "^10.0.0",
+=======
     "express-session": "^1.17.2",
+>>>>>>> 17fdf2369f41c004852bd4adee848d2484eb3687
     "mysql": "^2.18.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
@@ -40,6 +44,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "nodemon": "^2.0.15",
     "typescript": "~4.3.5"
   }
 }

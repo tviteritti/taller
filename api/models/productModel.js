@@ -4,21 +4,27 @@ const conexion = require("../config/conexion")
 //const { stringify } = require("querystring");
 
 module.exports = {
-  insertar (id,nombre,descripcion,precio) {
-    return ((resolve, reject) => {
+  insertar(nombre,clasificacion,descripcion,precio) {
+    console.log("entre a modelo producto")
+    return new Promise((resolve, reject) => {
       conexion.query(`insert into productos
-            (id,nombre,descripcion,precio)
+            (nombre,clasificacion,descripcion,precio)
             values
             (?,?,?,?)`,
-        [id,nombre,descripcion,precio], (err, resultados) => {
+        [nombre,clasificacion,descripcion,precio], (err, resultados) => {
+          console.log("llegue a error arriba" + err)
+          console.log("llegue a resultados arriba" + resultados)
           if (err) reject(err);
           else resolve(resultados.insertId);
         });
+
+        console.log(resolve + " resolveee")
+        console.log(reject + " reject")
     });
   },
   obtener() {
     return new Promise((resolve, reject) => {
-      conexion.query(`select id, nombre, descripcion, precio from productos`,
+      conexion.query(`select id, nombre,clasificacion, descripcion, precio from productos`,
         (err, resultados) => {
           if (err) reject(err);
           else resolve(resultados);
@@ -51,7 +57,7 @@ module.exports = {
   },
    obtenerPorId(id) {
     return new Promise((resolve, reject) => {
-      conexion.query(`select id, nombre,descripcion, precio from productos where id = ?`,
+      conexion.query(`select id, nombre,clasificacion,descripcion, precio from productos where id = ?`,
         [id],
         (err, resultados) => {
           if (err) reject(err);
