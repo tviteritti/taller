@@ -9,6 +9,12 @@
               <div class="row">
                 <div class="col-lg-10 col-xl-7 mx-auto">
                   <h3 class="display-4">Ingrese sus datos</h3>
+                  <div *ngIf="alertaRegistro" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    No olvide completar todos los campos
+                    <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                   <br>
                   <div class="form-group mb-3">
                     <input [(ngModel)]="register.email" type="email" id="typeEmailX" name="email"
@@ -31,7 +37,7 @@
                     class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrar</button>
                   <div>
                     <br>
-                    <p class="mb-0 text-center">¿Ya estas registrado? <a href="/login"
+                    <p class="mb-0 text-center">¿Ya estás registrado? <a href="/login"
                         class="text-primary-50 fw-bold">Login</a></p>
                   </div>
 

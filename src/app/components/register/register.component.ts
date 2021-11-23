@@ -15,6 +15,10 @@ export class RegisterComponent implements OnInit {
       password:""
   }
   constructor(private RegisterService:RegisterService, private router:Router) { }
+
+  alertaRegistro:boolean=false;
+
+
   submit(){
 
   }
@@ -22,18 +26,23 @@ export class RegisterComponent implements OnInit {
   }
   registerPost(){
     try {
-      const user = Auth.signUp({
+      var user = Auth.signUp({
         username: this.register.username,
         password: this.register.password,
         attributes: {
           email: this.register.email
         }
       });
-      console.log({user});
-      alert('User signup, verify email')
+      console.log({user});       
       this.router.navigate(['login']);
     } catch (error) {
-      console.log(error)
+      this.alertaRegistro = true;
     }
   }
+
+  closeAlert(){
+    this.alertaRegistro = false;
+  }
+
+
 }
