@@ -156,8 +156,18 @@ rutas.post("/carritoCompra", async (req, res) => {
     const id = req.body.id;
      const producto = await ventaModel.obtenerProductosVendidos(id);
       res.json(producto);
+});
+  
+rutas.post("/obteberIdcliente", async (req, res) => {
+  const email = req.body.email;
+     const id = await clienteModel.obtenerId(email);
+      res.json(id);
   });
-
+rutas.post("/obteberIdvent", async (req, res) => {
+    const idC = req.body.id;
+     const id = await ventaModel.obtenerIdVenta(idC);
+      res.json(id);
+  });
   rutas.post("/carrito/existe", async (req, res) => {
     const idProducto = req.body.id;
     const producto = await productModel.obtenerPorId(idProducto);

@@ -13,4 +13,13 @@ module.exports = {
         });
     });
   },
+  obtenerId(email) {
+    return new Promise((resolve, reject) => {
+      conexion.query(`select id from clientes where email = ?`,
+        [email], (err, resultados) => {
+          if (err) reject(err);
+          else resolve(resultados[0]);
+        });
+    });
+  },
 }

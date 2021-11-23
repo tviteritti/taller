@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       var tokens =  user.signInUserSession;
       if(tokens != null){
         console.log('User authenticated');
-        this.router.navigate(['home']);        
+        this.router.navigate(['home/'+this.user.email]);        
       }
     }catch (error){
       this.alertaLogin=true;
