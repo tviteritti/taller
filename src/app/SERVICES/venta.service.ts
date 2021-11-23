@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class VentaService {
 
-  url = '/api/carrito';
+  url = '/api/carritoCompra';
 
   constructor(private http: HttpClient) { }
 

@@ -149,9 +149,14 @@ rutas.post("/detalle_venta", async (req, res) => {
       venta.productos = await ventaModel.obtenerProductosVendidos(idVenta);
       res.json(venta);
   });
-  rutas.get("/carrito", (req, res) => {
-    res.json(req.session.carrito || []);
-  })
+rutas.get("/carrito", (req, res) => {
+  res.json(req.session.carrito || []);
+});
+rutas.post("/carritoCompra", async (req, res) => {
+    const id = req.body.id;
+     const producto = await ventaModel.obtenerProductosVendidos(id);
+      res.json(producto);
+  });
 
   rutas.post("/carrito/existe", async (req, res) => {
     const idProducto = req.body.id;
