@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
       if(this.idCliente!= null) {
         this.VentaService.obtenerIdVenta(this.idCliente).subscribe(data => {   
           this.idVenta = data;
+          this.idVenta = this.idVenta.id;
           if (this.idVenta != null) {
             this.VentaService.obtener(this.idVenta).subscribe(data => {
               this.carrito = data;
