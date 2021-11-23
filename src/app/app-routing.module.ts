@@ -1,3 +1,4 @@
+import { TiendaComponent } from './components/tienda/tienda.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent,  pathMatch: 'full'},
   { path: 'register', component: RegisterComponent,  pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
-  {path: 'agregarProducto' , component:AgregarProductoComponent}
+  { path: 'tienda', component: TiendaComponent},
+  { path: 'agregarProducto' , component:AgregarProductoComponent}
 ];
 
 @NgModule({

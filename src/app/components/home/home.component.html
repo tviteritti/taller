@@ -39,7 +39,9 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="padding-10">
+      <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
 </div>

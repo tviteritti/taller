@@ -106,7 +106,7 @@ rutas.get('/login', function (req, res) {
 
 
 rutas.get("/product",async (req, res) => {
-    console.log("pase por el backkkkkkkkkkkkkkkkkkkkkkkkkkk")
+
       const producto = await productModel.obtener();
       res.json(producto);
 });
@@ -120,11 +120,11 @@ rutas.post("/product",async (req, res) => {
 rutas.get("/ventas", async (req, res) => {
     const ventas = await ventaModel.obtener();
     res.json(ventas);
-  });  
+  });
 rutas.post("/compra", async (req, res) => {
     const {nombre, direccion} = req.body;
     let total = 0;
-  
+
     const carrito = req.session.carrito || [];
     carrito.forEach(p => total += p.precio);
     const idCliente = await clienteModel.insertar(nombre, direccion);
@@ -152,14 +152,14 @@ rutas.post("/detalle_venta", async (req, res) => {
   rutas.get("/carrito", (req, res) => {
     res.json(req.session.carrito || []);
   })
-  
+
   rutas.post("/carrito/existe", async (req, res) => {
     const idProducto = req.body.id;
     const producto = await productModel.obtenerPorId(idProducto);
     const existe = existeProducto(req.session.carrito || [], producto);
     res.json(existe);
   });
-  
+
   rutas.post("/carrito/agregar", async (req, res) => {
     const idProducto = req.body.id;
     const producto = await productModel.obtenerPorId(idProducto);
@@ -174,5 +174,5 @@ rutas.post("/detalle_venta", async (req, res) => {
     req.session.carrito.push(producto);
     res.json(req.body);
   });
-  
+
 module.exports = rutas;
