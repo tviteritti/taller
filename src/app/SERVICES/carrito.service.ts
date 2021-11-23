@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
@@ -7,7 +8,7 @@ import {HttpService} from "./http.service";
 })
 export class CarritoService {
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private httpClient:HttpClient) {
   }
 
   public async quitarProducto(idProducto: number) {
@@ -17,7 +18,7 @@ export class CarritoService {
   }
 
   public async agregarAlCarrito(idProducto: number) {
-    return await this.http.post("/carrito/agregar", {
+    return await this.httpClient.post("/carrito/agregar", {
       id: idProducto,
     });
   }

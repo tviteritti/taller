@@ -14,9 +14,9 @@ import {Router } from '@angular/router';
 export class HomeComponent implements OnInit {
  productos:any = [];
   constructor(private ProductosService:ProductosService, private VentaService:VentaService,private router:Router) { }
- 
+
   ngOnInit(): void {
-    this.VentaService.obtener(1).subscribe(data => {   // data is already a JSON object
+    this.ProductosService.obtener().subscribe(data => {   // data is already a JSON object
       this.productos = data;
       });
   }
@@ -37,5 +37,5 @@ export class HomeComponent implements OnInit {
   obtenerJson(){
    console.log(this.productos);
   }
-  
+
 }

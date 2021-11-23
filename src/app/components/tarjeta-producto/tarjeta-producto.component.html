@@ -6,7 +6,7 @@
     <div style="display: inline-block; vertical-align: top">
       <h2>{{producto.nombre}}</h2>
       <h1>{{producto.precio | currency}}</h1>
-      <button (click)="detalles()" mat-stroked-button color="warn">Ver detalles
+      <button (click)="agregarACarrito(producto.id)" mat-stroked-button color="warn">Agregar al carrito
         <mat-icon>arrow_right</mat-icon>
       </button>
     </div>
