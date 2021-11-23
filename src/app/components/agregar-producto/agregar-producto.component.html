@@ -1,33 +1,49 @@
-  <h1>Agregar producto</h1>
-  <p>
+  <div class="container">
+    <div class="col-auto p-5">
+      <h1>Agregar producto</h1>
 
-      <input  [(ngModel)]="productoModel.nombre"
-             type="text"
-             placeholder="Nombre">
+      <div class="form-group">
+        <div class="col-10">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" [(ngModel)]="productoModel.nombre"
+            placeholder="Ingrese el nombre del producto">
+        </div>
+      </div>
 
-  </p>
-  <p>
+      <div class="form-group">
+        <div class="col-10">
+          <label for="nombre">Clasificación</label>
+          <input type="text" class="form-control" id="clasificacion" [(ngModel)]="productoModel.clasificacion"
+            placeholder="Ingrese la clasificación del producto">
+        </div>
+      </div>
 
-    <input  [(ngModel)]="productoModel.clasificacion"
-           type="text"
-           placeholder="Clasificacion">
+      <div class="form-group">
+        <div class="col-10">
+          <label for="descripcion">Descripción</label>
+          <textarea class="form-control" id="descripcion" [(ngModel)]="productoModel.descripcion" rows="3"></textarea>
+        </div>
+      </div>
 
-</p>
-  <p>
+      <div class="col-10">
+        <div class="input-group mb-3">
 
-      <textarea rows="10"  [(ngModel)]="productoModel.descripcion"
-                placeholder="Descripción"></textarea>
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="number" class="form-control" [(ngModel)]="productoModel.precio">
+        </div>
+      </div>
 
-  </p>
-  <p>
 
-      <input  [(ngModel)]="productoModel.precio"
-             type="number"
-             placeholder="Precio">
+      <div class="col-10">
+      <div class="float-right ">
+        <a class="prolijo "  routerLink="/home" mat-raised-button>Volver</a>
+        <button class="prolijo" mat-raised-button color="primary" texto="Guardar" (click)="guardar()">Guardar</button>
+      </div>
+    </div>
 
-  </p>
 
-  <p>
-    <button texto="Guardar" (click)="guardar()">Guardar</button>
-    <a routerLink="/home" mat-raised-button color="primary" style="margin-left: 10px">Volver</a>
-  </p>
+    </div>
+
+  </div>
