@@ -21,6 +21,16 @@ module.exports = {
         });
     });
   },
+  obtenerIdVenta(id) {
+    return new Promise((resolve, reject) => {
+      conexion.query(`select ventas.id FROM ventas WHERE id_cliente = ?`,
+        [id],
+        (err, resultados) => {
+          if (err) reject(err);
+          else resolve(resultados[0]);
+        });
+    });
+  },
   obtener() {
     return new Promise((resolve, reject) => {
       conexion.query(`select ventas.id, ventas.total, clientes.nombre, clientes.direccion FROM ventas inner join clientes on ventas.id_cliente = clientes.id;`,
