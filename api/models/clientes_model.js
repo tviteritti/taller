@@ -1,13 +1,13 @@
 
 const conexion = require("../config/conexion")
 module.exports = {
-  insertar(nombre, direccion) {
+  insertar(nombre, contraseña, apellido, direccion, email) {
     return new Promise((resolve, reject) => {
       conexion.query(`insert into clientes
-            (nombre,direccion)
+            (nombre,contraseña,apellido,direccion,email)
             values
-            (?, ?)`,
-        [nombre, direccion], (err, resultados) => {
+            (?, ?, ?, ?,?)`,
+        [nombre,contraseña,apellido,direccion,email], (err, resultados) => {
           if (err) reject(err);
           else resolve(resultados.insertId);
         });

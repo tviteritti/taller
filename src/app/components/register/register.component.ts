@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService, IRegister } from '../../SERVICES/register.service'
+import { ClienteService } from '../../SERVICES/cliente.service'
 import {Router } from '@angular/router';
 import Auth from '@aws-amplify/auth';
 
@@ -12,9 +13,12 @@ export class RegisterComponent implements OnInit {
   register: IRegister={
       username:"",
       email:"",
-      password:""
+      password:"",
+      nombre:"",
+      direccion:"",
+      apellido:""
   }
-  constructor(private RegisterService:RegisterService, private router:Router) { }
+  constructor(private RegisterService:RegisterService,private ClienteService:ClienteService, private router:Router) { }
 
   alertaRegistro:boolean=false;
 
@@ -33,6 +37,7 @@ export class RegisterComponent implements OnInit {
           email: this.register.email
         }
       });
+      this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
       console.log({user});       
       this.router.navigate(['login']);
     } catch (error) {

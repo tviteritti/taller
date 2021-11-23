@@ -167,6 +167,11 @@ rutas.post("/obteberIdvent", async (req, res) => {
     const idC = req.body.id;
      const id = await ventaModel.obtenerIdVenta(idC);
       res.json(id);
+});
+rutas.post("/registro", async (req, res) => {
+    const {nombre,contraseña,apellido,direccion,email} = req.body;
+     const cliente = await clienteModel.insertar(nombre,contraseña,apellido,direccion,email);
+      res.json(cliente);
   });
   rutas.post("/carrito/existe", async (req, res) => {
     const idProducto = req.body.id;
