@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VentaService } from '../../SERVICES/venta.service';
-import { ProductosService, IProducts } from '../../SERVICES/productos.service';
-import {Router } from '@angular/router';
+import { ProductosService } from '../../SERVICES/productos.service';
+import { ClienteService } from '../../SERVICES/cliente.service';
+import {Router,ActivatedRoute } from '@angular/router';
 
 
 
@@ -12,30 +13,46 @@ import {Router } from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
- productos:any = [];
-  constructor(private ProductosService:ProductosService, private VentaService:VentaService,private router:Router) { }
+
+  productos: any = [];
+  carrito: any = [];
+  email: string = '';
+  idCliente: any = 0;
+  idVenta: any = 0;
+
+  constructor(private ProductosService:ProductosService, private VentaService:VentaService, private ClienteService:ClienteService,private router:Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.ProductosService.obtener().subscribe(data => {   // data is already a JSON object
+    this.ProductosService.obtener().subscribe(data => {   
       this.productos = data;
-      });
+    });
+
+    this.email = this.route.snapshot.params['email'];
+
+    this.ClienteService.obtenerId(this.email).subscribe(data => {   
+      this.idCliente = data;
+      this.idCliente = this.idCliente.id;
+
+      if(this.idCliente!= null) {
+        this.VentaService.obtenerIdVenta(this.idCliente).subscribe(data => {   
+          this.idVenta = data;
+          this.idVenta = this.idVenta.id;
+          if (this.idVenta != null) {
+            this.VentaService.obtener(this.idVenta).subscribe(data => {
+              this.carrito = data;
+            });
+          }
+        })
+      }
+    });
   }
   public total() {
     // Quién te conoce reduce
     let total = 0;
-    this.productos.forEach((p: { precio: number; }) => total += p.precio);
+    this.carrito.forEach((p: { precio: number; }) => total += p.precio);
     return total;
   }
-
-
-   obtener():any {
-     console.log("llegue component front")
-     this.ProductosService.obtener().subscribe(data => {   // data is already a JSON object
-       this.productos = data;
-  });
-  }
-  obtenerJson(){
-   console.log(this.productos);
-  }
+  
+  
 
 }

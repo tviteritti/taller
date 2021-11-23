@@ -19,22 +19,33 @@ export class LoginComponent implements OnInit {
 
   constructor(private router:Router) { }
 
+  alertaLogin:boolean=false;
+  
+
+
+
 
   ngOnInit(): void {
   }
 
    async login(){
     try {
+      
+
       var user = await Auth.signIn(this.user.email.toString(), this.user.password.toString());
       console.log('Email = ' + this.user.email + ' pass= ' + this.user.password);
       var tokens =  user.signInUserSession;
       if(tokens != null){
         console.log('User authenticated');
-        this.router.navigate(['home']);
+        this.router.navigate(['home/'+this.user.email]);        
       }
     }catch (error){
-      alert(error);
+      this.alertaLogin=true;
     }
+  }
+
+  closeAlert(){
+    this.alertaLogin = false;
   }
 
 }
