@@ -24,7 +24,7 @@ module.exports = {
   },
   obtener() {
     return new Promise((resolve, reject) => {
-      conexion.query(`select id, nombre,descripcion, precio from productos`,
+      conexion.query(`select id, nombre,clasificacion, descripcion, precio from productos`,
         (err, resultados) => {
           if (err) reject(err);
           else resolve(resultados);
