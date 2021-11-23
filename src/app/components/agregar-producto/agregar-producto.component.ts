@@ -1,5 +1,6 @@
 
 import {Component, OnInit} from '@angular/core';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {Producto} from "../../producto";
 import {ProductosService} from "../../SERVICES/productos.service";
 
@@ -10,45 +11,56 @@ import {ProductosService} from "../../SERVICES/productos.service";
 })
 export class AgregarProductoComponent implements OnInit {
   productoModel = new Producto("", "","","");
+ 
 
-
-  constructor(private productosService: ProductosService) {
-  }
+  constructor(private productosService: ProductosService) {  }
+  alert:boolean=false;
+  alertaNombre:boolean=false;
+  alertaClasificacion:boolean=false;
+  alertaDescripcion:boolean=false;
+  alertaPrecio:boolean=false;
 
   public cargando = false;
+  
+  ngOnInit(): void {  }
 
    guardar() {
     if (!this.productoModel.nombre) {
-      return alert("Escribe un nombre");
+       this.alertaNombre = true;
     }
     if (!this.productoModel.clasificacion) {
-      return alert("Escribe la clasificacion");
+       this.alertaClasificacion = true;
     }
     if (!this.productoModel.descripcion) {
-      return alert("Escribe la descripción");
+       this.alertaDescripcion = true;
     }
     if (!this.productoModel.precio) {
-      return alert("Escribe el precio");
+      this.alertaPrecio = true; 
     }
+
+    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio){
+      this.cargando = true;
+      // Guardamos producto
+      console.log(this.productoModel)
+      const idProductoGuardado= this.productosService.agregarProducto(this.productoModel);  
+      // Y luego las fotos
+      //const fd = new FormData();  
+      //fd.append("idProducto", idProductoGuardado);
+    
   
-    this.cargando = true;
-    // Guardamos producto
-    console.log(this.productoModel)
-    const idProductoGuardado= this.productosService.agregarProducto(this.productoModel);
+      this.cargando = false;
+      //this.productoModel = new Producto("", "","","","");  
+      this.alert=true;
 
-    // Y luego las fotos
-    //const fd = new FormData();
-
-    //fd.append("idProducto", idProductoGuardado);
-  
-
-    this.cargando = false;
-    //this.productoModel = new Producto("", "","","","");
+    }   
+    
   }
 
-  ngOnInit(): void {
-
-
-  }
+    closeAlert(){
+          this.alert=false
+          this.alertaNombre=false
+          this.alertaClasificacion=false
+          this.alertaPrecio=false
+        }
 
 }
