@@ -30,6 +30,7 @@ import { AgregarProductoComponent } from './components/agregar-producto/agregar-
 import { TarjetaProductoComponent } from './components/tarjeta-producto/tarjeta-producto.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import { DetalleDeProductoComponent } from './components/detalle-de-producto/detalle-de-producto.component';
+//import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 
@@ -62,7 +63,8 @@ Amplify.configure({
     AgregarProductoComponent,
     TarjetaProductoComponent,
     TiendaComponent,
-    DetalleDeProductoComponent
+    DetalleDeProductoComponent,
+   // PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
