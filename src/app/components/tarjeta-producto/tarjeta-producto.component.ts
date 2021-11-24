@@ -37,7 +37,7 @@ export class TarjetaProductoComponent implements OnInit {
 
   public resolverRuta() {
     const baseUrl = environment.baseUrl;
-    return `../../../fotos_productos/${this.producto.foto}`;
+    return `../../../assets/fotos_productos/${this.producto.foto}`;
   }
 
   public agregarAlCarrito(id:number) {
