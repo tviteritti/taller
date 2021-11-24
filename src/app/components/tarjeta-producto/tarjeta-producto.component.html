@@ -1,15 +1,29 @@
 <mat-card>
-  <div style="">
-    <div class="contenedor-imagen">
-      <img src="{{resolverRuta()}}" alt="">
-    </div>
+  <mat-card-header>
+    <mat-card-title>{{producto.nombre | uppercase}}</mat-card-title>
+    <mat-card-subtitle>{{producto.precio | currency}}</mat-card-subtitle>
+  </mat-card-header>
+  <div class="contenedor-imagen">
+    <!--
+      <div class="crop-image">
+      <img [src]="product.image" alt="">
+      </div>
+    -->
+    <img src="{{resolverRuta()}}" alt="">
+  </div>
+  <mat-card-content>
+    <div class="respiro">
+    {{producto.descripcion | slice:0:10}}
+  </div>
+  </mat-card-content>
+ 
+    
     <div style="display: inline-block; vertical-align: top">
-      <h2>{{producto.nombre}}</h2>
-      <h1>{{producto.precio | currency}}</h1>
+
+      
       <button (click)="agregarACarrito(producto.id)" mat-stroked-button color="warn">Agregar al carrito
         <mat-icon>arrow_right</mat-icon>
       </button>
     </div>
-  </div>
-</mat-card>
 
+</mat-card>

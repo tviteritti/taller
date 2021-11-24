@@ -5,7 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>
-        Compumundo Hiper Mega Red
+        DressCode
       </span>
       <span class="example-fill-remaining-space"></span>
       <button mat-raised-button [matMenuTriggerFor]="menu" color="#e1f5fe">
@@ -39,7 +39,10 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="padding-10">
-      <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
+      <div class="product-grid">
+        <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
+      </div>
+     
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
