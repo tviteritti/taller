@@ -180,15 +180,48 @@ rutas.post("/registro", async (req, res) => {
     res.json(existe);
   });
 
-  rutas.post("/carrito/agregar", async (req, res) => {
-   const {idV,idP} = req.body;
-     const producto = await productoVendidoModel.insertar(idV,idP);
+rutas.post("/carrito/agregar", async (req, res) => {
+    const { idV, idP } = req.body;
+    let cantidad = 0;
+    let producto;
+  
+  cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
+  if (cantidad !== undefined && cantidad !== NaN) {
+    cantidad = cantidad.cantidad
+  } else {
+    cantidad = 0;
+  }
+    
+  cantidad++;
+    if (cantidad === 1) {
+      producto = await productoVendidoModel.insertar(idV,idP,cantidad);
+      
+    } else {
+      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);    
+    }
       res.json(producto);
   });
 
   rutas.post("/carrito/eliminar", async (req, res) => {
-    const {idV,idP} = req.body;
-     const producto = await productoVendidoModel.eliminar(idV,idP);
+    const { idV, idP } = req.body;
+    let cantidad = 0;
+    let producto;
+    
+    cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
+      if (cantidad !== undefined && cantidad !== NaN) {
+      cantidad = cantidad.cantidad
+      } else {
+        res.json('no hay en el carrito');
+        return;
+    }
+      
+    cantidad--;
+    if (cantidad === 0) {
+      producto = await productoVendidoModel.eliminar(idV,idP,cantidad);
+      
+    } else {
+      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);    
+    }
       res.json(producto);
   });
 

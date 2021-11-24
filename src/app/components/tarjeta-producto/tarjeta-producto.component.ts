@@ -42,11 +42,13 @@ export class TarjetaProductoComponent implements OnInit {
 
   public agregarAlCarrito(id:number) {
     console.log('agregar al carrito');
-    this.serviceCarrito.agregarAlCarrito(this.idVenta,id).subscribe(data => {});
+    this.serviceCarrito.agregarAlCarrito(this.idVenta, id).subscribe(data => { });
+    window.location.reload();
   }
   public quitarDelCarrito(id:number) {
     console.log('agregar al carrito');
-    this.serviceCarrito.quitarProducto(this.idVenta,id).subscribe(data => {});
+    this.serviceCarrito.quitarProducto(this.idVenta, id).subscribe(data => { });
+    window.location.reload();
   }
 
 }
