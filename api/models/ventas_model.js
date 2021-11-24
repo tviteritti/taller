@@ -3,7 +3,7 @@ const conexion = require("../config/conexion")
 module.exports = {
   obtenerProductosVendidos(idVenta) {
     return new Promise((resolve, reject) => {
-      conexion.query(`select productos.* from productos_vendidos inner join productos on productos.id = productos_vendidos.id_producto where productos_vendidos.id_venta = ?;`,
+      conexion.query(`select * from productos_vendidos inner join productos on productos.id = productos_vendidos.id_producto where productos_vendidos.id_venta = ?;`,
         [idVenta],
         (err, resultados) => {
           if (err) reject(err);
