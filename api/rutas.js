@@ -107,7 +107,7 @@ rutas.get('/login', function (req, res) {
 
 rutas.get("/product",async (req, res) => {
 
-      const producto = await productModel.obtener();
+      const producto = await productModel.obtenerConFotos();
       res.json(producto);
 });
 rutas.post("/product",async (req, res) => {

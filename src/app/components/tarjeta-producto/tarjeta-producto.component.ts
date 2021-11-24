@@ -19,7 +19,7 @@ export class TarjetaProductoComponent implements OnInit {
 
   public resolverRuta() {
     const baseUrl = environment.baseUrl;
-    return `${baseUrl}/foto_producto/${this.producto.foto}`;
+    return `../../../fotos_productos/${this.producto.foto}`;
   }
 
   public agregarACarrito(id:number) {
