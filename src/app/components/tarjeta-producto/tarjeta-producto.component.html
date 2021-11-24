@@ -21,8 +21,14 @@
     <div style="display: inline-block; vertical-align: top">
 
       
-      <button (click)="agregarACarrito(producto.id)" mat-stroked-button color="warn">Agregar al carrito
-        <mat-icon>arrow_right</mat-icon>
+      <button (click)="agregarAlCarrito(producto.id)" class="carrito" mat-raised-button color="accent">
+      
+        <mat-icon>add</mat-icon>
+        Agregar al carrito
+      </button>
+      <button (click)="quitarDelCarrito(producto.id)" class="carrito" mat-raised-button color="accent">
+        <mat-icon>delete</mat-icon>
+        Quitar del carrito
       </button>
     </div>
 

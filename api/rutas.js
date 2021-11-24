@@ -181,18 +181,15 @@ rutas.post("/registro", async (req, res) => {
   });
 
   rutas.post("/carrito/agregar", async (req, res) => {
-    const idProducto = req.body.id;
-    const producto = await productModel.obtenerPorId(idProducto);
-    if (!req.session.carrito) {
-      req.session.carrito = [];
-    }
-    // por el momento no se pueden llevar más de dos productos iguales
-    if (existeProducto(req.session.carrito, producto)) {
-      res.json(true);
-      return;
-    }
-    req.session.carrito.push(producto);
-    res.json(req.body);
+   const {idV,idP} = req.body;
+     const producto = await productoVendidoModel.insertar(idV,idP);
+      res.json(producto);
+  });
+
+  rutas.post("/carrito/eliminar", async (req, res) => {
+    const {idV,idP} = req.body;
+     const producto = await productoVendidoModel.eliminar(idV,idP);
+      res.json(producto);
   });
 
 module.exports = rutas;
