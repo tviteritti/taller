@@ -4,7 +4,7 @@ const conexion = require("../config/conexion")
 //const { stringify } = require("querystring");
 
 module.exports = {
-  insertar(nombre,clasificacion,descripcion,precio) {
+  insertar(nombre,clasificacion,descripcion,precio,foto) {
     console.log("entre a modelo producto")
     return new Promise((resolve, reject) => {
       conexion.query(`insert into productos
@@ -12,6 +12,26 @@ module.exports = {
             values
             (?,?,?,?)`,
         [nombre,clasificacion,descripcion,precio], (err, resultados) => {
+          console.log("llegue a error arriba" + err)
+          console.log("llegue a resultados arriba" + resultados)
+          if (err) reject(err);
+          else{ 
+            this.insertarFoto(resultados.insertId,foto)
+            resolve(resultados.insertId)};
+        });
+
+        console.log(resolve + " resolveee")
+        console.log(reject + " reject")
+    });
+  },
+  insertarFoto(idProducto,foto) {
+    console.log("entre a modelo producto")
+    return new Promise((resolve, reject) => {
+      conexion.query(`insert into fotos_productos
+            (id_producto,foto)
+            values
+            (?,?)`,
+        [idProducto,foto], (err, resultados) => {
           console.log("llegue a error arriba" + err)
           console.log("llegue a resultados arriba" + resultados)
           if (err) reject(err);
