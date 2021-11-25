@@ -83,5 +83,8 @@ export class TerminarCompraComponent implements OnInit {
   public terminarYRedirijir(){      
     this.router.navigate(['home/' + this.email]);
   }
+  public rutaImagen(nombre:string){      
+    return "../../../assets/fotos_productos/"+ nombre;
+  }
 
 }
