@@ -23,15 +23,9 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(app.get('port'), (error) => {
-    if (error) {
-        console.log('error' + error);
-        return;
-    } else {
-        console.log('Example app listening on port ' + port)
-
-    }
-});
+app.listen(3000, () => {
+    console.log("Server started in port 3000!");
+  });
 
 
 

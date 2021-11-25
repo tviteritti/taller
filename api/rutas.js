@@ -158,12 +158,12 @@ rutas.post("/carritoCompra", async (req, res) => {
       res.json(producto);
 });
   
-rutas.post("/obteberIdcliente", async (req, res) => {
+rutas.post("/obtenerIdcliente", async (req, res) => {
   const email = req.body.email;
      const id = await clienteModel.obtenerId(email);
       res.json(id);
   });
-rutas.post("/obteberIdvent", async (req, res) => {
+rutas.post("/obtenerIdvent", async (req, res) => {
     const idC = req.body.id;
      const id = await ventaModel.obtenerIdVenta(idC);
       res.json(id);
