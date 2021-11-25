@@ -24,14 +24,14 @@ module.exports = {
         console.log(reject + " reject")
     });
   },
-  insertarFoto(idProducto,foto) {
+  insertarFoto(id_producto,foto) {
     console.log("entre a modelo producto")
     return new Promise((resolve, reject) => {
       conexion.query(`insert into fotos_productos
             (id_producto,foto)
             values
             (?,?)`,
-        [idProducto,foto], (err, resultados) => {
+        [id_producto,foto], (err, resultados) => {
           console.log("llegue a error arriba" + err)
           console.log("llegue a resultados arriba" + resultados)
           if (err) reject(err);
