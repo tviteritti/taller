@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ClienteService {
 
-  url = '/api/obteberIdcliente';
+  url = '/api/obtenerIdcliente';
   url2 = '/api/registro';
 
   constructor(private http: HttpClient) { }
