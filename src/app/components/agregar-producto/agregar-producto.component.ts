@@ -10,7 +10,7 @@ import {ProductosService} from "../../SERVICES/productos.service";
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
-  productoModel = new Producto("", "","","");
+  productoModel = new Producto("", "","","","");
  
 
   constructor(private productosService: ProductosService) {  }
@@ -19,6 +19,7 @@ export class AgregarProductoComponent implements OnInit {
   alertaClasificacion:boolean=false;
   alertaDescripcion:boolean=false;
   alertaPrecio:boolean=false;
+  alertaFoto:boolean=false;
 
   public cargando = false;
   
@@ -38,7 +39,12 @@ export class AgregarProductoComponent implements OnInit {
       this.alertaPrecio = true; 
     }
 
-    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio){
+    if (!this.productoModel.foto) {
+      this.alertaFoto = true; 
+    }
+
+
+    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio && this.productoModel.foto){
       this.cargando = true;
       // Guardamos producto
       console.log(this.productoModel)
