@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{producto.nombre | uppercase}}</mat-card-title>
+    <mat-card-title>{{producto.nombre | uppercase}} </mat-card-title>
     <mat-card-subtitle>{{producto.precio | currency}}</mat-card-subtitle>
   </mat-card-header>
   <div class="contenedor-imagen">
@@ -24,7 +24,7 @@
       <button (click)="agregarAlCarrito(producto.id)" class="carrito" mat-raised-button color="accent">
       
         <mat-icon>add_shopping_cart</mat-icon>
-        Agregar al carrito
+        Agregar al carrito 
       </button>
       <button (click)="quitarDelCarrito(producto.id)" class="carrito" mat-raised-button color="accent">
         <mat-icon>delete</mat-icon>

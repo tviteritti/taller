@@ -49,6 +49,17 @@ module.exports = {
         [idCliente, total], (err, resultados) => {
           if (err) reject(err);
           else resolve(resultados.insertId);
+
+        });
+    });
+  },
+  terminarCompraProductoVendido(idV) {
+    return new Promise((resolve, reject) => {
+      conexion.query(`delete from productos_vendidos
+        where id_venta=?`,
+        [idV], (err, resultados) => {
+          if (err) reject(err);
+          else resolve(resultados.insertId);
         });
     });
   },

@@ -171,6 +171,7 @@ rutas.post("/obtenerIdvent", async (req, res) => {
 rutas.post("/registro", async (req, res) => {
     const {nombre,contraseña,apellido,direccion,email} = req.body;
      const cliente = await clienteModel.insertar(nombre,contraseña,apellido,direccion,email);
+     const venta = await ventaModel.insertar(cliente,0);
       res.json(cliente);
   });
   rutas.post("/carrito/existe", async (req, res) => {
@@ -224,5 +225,10 @@ rutas.post("/carrito/agregar", async (req, res) => {
     }
       res.json(producto);
   });
+  rutas.post("/terminarCompra", async (req, res) => {
+    const idV = req.body.idV;
+    const productoVenta = await ventaModel.terminarCompraProductoVendido(idV);
+      res.json(productoVenta);
+});
 
 module.exports = rutas;
