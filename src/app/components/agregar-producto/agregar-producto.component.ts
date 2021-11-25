@@ -10,7 +10,7 @@ import {ProductosService} from "../../SERVICES/productos.service";
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
-  productoModel = new Producto("", "","","");
+  productoModel = new Producto("","","","","remera_negra_lisa.jpg");
  
 
   constructor(private productosService: ProductosService) {  }
@@ -19,7 +19,7 @@ export class AgregarProductoComponent implements OnInit {
   alertaClasificacion:boolean=false;
   alertaDescripcion:boolean=false;
   alertaPrecio:boolean=false;
-
+ 
   public cargando = false;
   
   ngOnInit(): void {  }
@@ -38,7 +38,10 @@ export class AgregarProductoComponent implements OnInit {
       this.alertaPrecio = true; 
     }
 
-    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio){
+
+
+
+    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio ){
       this.cargando = true;
       // Guardamos producto
       console.log(this.productoModel)
