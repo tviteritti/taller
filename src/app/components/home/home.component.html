@@ -14,12 +14,12 @@
           matBadgePosition="after" matBadgeColor="warn">Mis compras</span>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let c of carrito;">{{c.nombre}} {{c.precio | currency}} <span class="text-danger">X{{c.cantidad}}</span></button>
-        <button mat-menu-item>
+        <button mat-menu-item *ngFor="let c of carrito;">{{c.nombre}}  <span class="text-danger" style="text-align:right">X{{c.cantidad}}</span></button>
+        <button mat-menu-item style="text-align: center;">
           <strong>Total: {{total() | currency}}</strong>
         </button>
-        <a *ngIf="productos.length > 0" mat-menu-item routerLink={{rutaTerminar()}}>
-          <mat-icon>shopping_cart</mat-icon>
+        <a *ngIf="productos.length > 0" mat-menu-item routerLink={{rutaTerminar()}} class="text-danger">
+          <mat-icon class="carritoIcon">shopping_cart</mat-icon>
           Terminar compra
         </a>
       </mat-menu>

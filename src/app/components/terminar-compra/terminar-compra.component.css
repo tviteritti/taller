@@ -25,3 +25,22 @@ img{
 .example-fill-remaining-space {
     flex: 1 1 auto;
 }
+
+.padre-flex{
+  display: flex;
+  flex-direction: column ;
+  justify-content: space-between; 
+  text-align: center;
+ 
+}
+
+
+.peque{
+width: 60%;
+margin: auto;
+}
+
+.breath{
+  padding-top: 2%;
+}
+ 
