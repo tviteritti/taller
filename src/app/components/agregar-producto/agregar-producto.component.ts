@@ -1,9 +1,10 @@
 
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {Producto} from "../../producto";
 import {ProductosService} from "../../SERVICES/productos.service";
-
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-agregar-producto',
   templateUrl: './agregar-producto.component.html',
@@ -11,9 +12,10 @@ import {ProductosService} from "../../SERVICES/productos.service";
 })
 export class AgregarProductoComponent implements OnInit {
   productoModel = new Producto("","","","","remera_negra_lisa.jpg");
+  email: string = '';
  
 
-  constructor(private productosService: ProductosService) {  }
+  constructor(private productosService: ProductosService,private router:Router,private route: ActivatedRoute) {  }
   alert:boolean=false;
   alertaNombre:boolean=false;
   alertaClasificacion:boolean=false;
@@ -54,9 +56,14 @@ export class AgregarProductoComponent implements OnInit {
       this.cargando = false;
       //this.productoModel = new Producto("", "","","","");  
       this.alert=true;
-
+      //this.router.navigate(['home/'+this.user.email]);  
+      this.route.queryParams.subscribe(params => {
+        this.email = params['user'];
+ 
+    });
+    this.router.navigate(["/home/"+this.email])
     }   
-    
+  
   }
 
     closeAlert(){
