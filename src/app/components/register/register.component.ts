@@ -37,6 +37,9 @@ export class RegisterComponent implements OnInit {
           email: this.register.email
         }
       });
+      this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
+      console.log({user});
+      this.router.navigate(['login']);
       user.catch((data)=>{
           alert(data)
       });
