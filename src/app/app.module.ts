@@ -26,13 +26,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { CookieService } from 'ngx-cookie-service';
 
 import Amplify from '@aws-amplify/core';
-import { ProductosComponent } from './components/productos/productos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { TarjetaProductoComponent } from './components/tarjeta-producto/tarjeta-producto.component';
-import { TiendaComponent } from './components/tienda/tienda.component';
-import { DetalleDeProductoComponent } from './components/detalle-de-producto/detalle-de-producto.component';
-import { VentasComponent } from './components/ventas/ventas.component';
 import { TerminarCompraComponent } from './components/terminar-compra/terminar-compra.component';
 //import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
@@ -54,12 +49,7 @@ Amplify.configure({
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ProductosComponent,
-    AgregarProductoComponent,
     TarjetaProductoComponent,
-    TiendaComponent,
-    DetalleDeProductoComponent,
-    VentasComponent,
     TerminarCompraComponent
    // PageNotFoundComponent,
   ],
