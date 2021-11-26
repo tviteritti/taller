@@ -1,6 +1,6 @@
 const rutas = require('express').Router();
 require("dotenv").config();
-
+var passwordValidator = require('password-validator');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 const poolData = {
@@ -47,6 +47,7 @@ rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
     const { email, username, password } = req.body;
     console.log(email);
+   
 
      var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
         Username : username,
@@ -71,9 +72,66 @@ rutas.post('/login', function (req, res) {
 
     });
 });
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+const validatePass = (pass) => {
+  var schema = new passwordValidator();
 
+  schema
+  .is().min(8)                                    // Minimum length 8
+  .is().max(100)                                  // Maximum length 100
+  .has().uppercase()                              // Must have uppercase letters
+  .has().lowercase()                              // Must have lowercase letters
+  .has().digits(1)                                // Must have at least 2 digits
+  .has().not().spaces()
+  .has().symbols()                          
+  return schema.validate(pass)
+ 
+
+ 
+}
+const validationResult = (req) => {
+  var errors = [];
+  var errorUsername = "Cambiar username tiene que ser un mail valido "
+  var errorEmail = "Cambiar email tiene que ser un mail valido "
+  var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
+  const { email, username, password } = req.body
+  if(!validateEmail(email)){
+  
+    errors[0]= errorEmail;
+    console.log(errors[0])
+  }
+  if(!validateEmail(username)){
+
+    errors[1]= errorUsername;
+    console.log(errors [1])
+
+  }
+  if(!validatePass(password)){
+ 
+    errors [2] = errorPassword;
+    console.log(errors[2])
+    }
+  
+  
+  return errors;
+}
 rutas.post('/register', function (req, res) {
     const { email, username, password } = req.body;
+    const errors =validationResult(req);
+    
+    if (errors.length>0) {
+      console.log(errors)
+        return res.status(400).json({
+            success: false,
+            errors: errors
+        });
+    }
     console.log("pase por el post de register bro")
 
     var attributeList = [];
