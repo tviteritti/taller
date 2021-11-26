@@ -29,6 +29,7 @@ import Amplify from '@aws-amplify/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TarjetaProductoComponent } from './components/tarjeta-producto/tarjeta-producto.component';
 import { TerminarCompraComponent } from './components/terminar-compra/terminar-compra.component';
+import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 //import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
@@ -50,7 +51,8 @@ Amplify.configure({
     RegisterComponent,
     HomeComponent,
     TarjetaProductoComponent,
-    TerminarCompraComponent
+    TerminarCompraComponent,
+    AgregarProductoComponent
    // PageNotFoundComponent,
   ],
   imports: [

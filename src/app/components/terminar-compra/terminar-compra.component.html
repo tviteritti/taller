@@ -30,81 +30,106 @@
       <mat-nav-list>
         <button mat-list-item (click)="terminarYRedirijir()">
           <mat-icon color="primary">add_circle</mat-icon>
-          &nbsp;Agregar mas productos 
+          &nbsp;Agregar mas productos
         </button>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="padding-10">
 
-        <mat-horizontal-stepper #stepper linear>
-          <mat-step label="Revisar total">
+      <mat-horizontal-stepper #stepper linear>
+        <mat-step label="Revisar total">
 
-            <div *ngFor="let c of carrito;">
-              <div class="d-flex justify-content-around pb-5">
-                <div>
-                  <img [src]="rutaImagen(c.foto)" alt="" width=100px;>
-                </div>
-                <div>
-                  {{c.nombre}} {{c.precio | currency}} 
-                  <span class="text-danger">X{{c.cantidad}}</span>
-                </div>
-                <div>
+          <div *ngFor="let c of carrito;">
+            <div class="d-flex justify-content-around pb-5">
+              <div>
+                <img [src]="rutaImagen(c.foto)" alt="" width=100px;>
+              </div>
+              <div>
+                {{c.nombre}} &nbsp; {{c.precio | currency}}
+                <span class="text-danger">&nbsp;X{{c.cantidad}}</span>
+              </div>
+              <div class="padre-flex">
+
+                <div class="hijo">
                   <button (click)="agregarAlCarrito(c.id)" class="carrito" mat-raised-button color="accent">
-                  
+
                     <mat-icon>add_shopping_cart</mat-icon>
-                    Agregar al carrito
+                    Agregar
                   </button>
                   <button (click)="quitarDelCarrito(c.id)" class="carrito" mat-raised-button color="accent">
                     <mat-icon>delete</mat-icon>
-                    Quitar del carrito
+                    Quitar
                   </button>
                 </div>
+                
+
+                <button matStepperNext mat-raised-button color="primary" class="peque">Continuar
+                  <mat-icon>arrow_forward</mat-icon>
+                </button>
+
+
               </div>
             </div>
-          
-            
-            <h2>Total: {{total() | currency}}</h2>
-            <button matStepperNext mat-raised-button color="primary">Continuar
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-          </mat-step>
-          <mat-step label="Datos del cliente">
-            <p>
-              
-                <input matInput [(ngModel)]="clienteModel.nombre"
-                      type="text"
-                      placeholder="Nombre">
-            
-            </p>
-            <p>
-              
-              <textarea rows="10" matInput [(ngModel)]="clienteModel.direccion"
-                        placeholder="Dirección de envío"></textarea>
-              
-            </p>
-            <button matStepperPrevious mat-raised-button color="primary">
-              <mat-icon>arrow_back</mat-icon>
-              Volver
-            </button>
-            &nbsp;
-            <button (click)="revisarYTerminar(stepper)" mat-raised-button color="warn">Terminar compra
-              <mat-icon>check</mat-icon>
-            </button>
-          </mat-step>
-          <mat-step label="Gracias por su compra">
-            <div *ngIf="compraTerminada">
-              <h2 class="mat-display-3">¡Gracias por su compra!</h2>
-              <img src="assets/order-complete.png" alt="*inserte imagen*">
-              <p>Su paquete llegará a la dirección especificada en los siguientes días</p>
-              <button (click)="terminarYRedirijir()">Inicio</button>
-            </div>
-            <div *ngIf="!compraTerminada">
-              Por favor, rellene los formularios de los pasos anteriores
-            </div>
-          </mat-step>
-        </mat-horizontal-stepper>
+          </div>
 
-</mat-sidenav-content>
-</mat-sidenav-container>
+
+          <h2>Total: {{total() | currency}}</h2>
+        
+        </mat-step>
+        <mat-step  label="Datos del cliente">
+          <div class="breath"> 
+            <div class="form-group col-md-5">
+              <label >Nombre</label>
+              <input matInput [(ngModel)]="clienteModel.nombre" type="text" placeholder="Nombre" class="form-control" >
+  
+            </div>
+            <div class="form-group col-md-5">
+              <label >Dirección</label>
+              <textarea rows="10" matInput [(ngModel)]="clienteModel.direccion"
+                placeholder="Dirección de envío" class="form-control"></textarea>
+  
+              </div>
+          </div>
+         
+          <button matStepperPrevious mat-raised-button color="primary">
+            <mat-icon>arrow_back</mat-icon>
+            Volver
+          </button>
+          &nbsp;
+          <button (click)="revisarYTerminar(stepper)" mat-raised-button color="warn">Terminar compra
+            <mat-icon>check</mat-icon>
+          </button>
+        </mat-step>
+        <mat-step label="Gracias por su compra">
+          <div *ngIf="compraTerminada">
+           
+            <div style="text-align:center;">
+              <img [src] ="ImagePath" style="width: 400px;height: 350px;">
+            </div>
+            <br>
+            <br>
+            <br>
+            <h2 class="gracias">¡Gracias por su compra!</h2>
+           <br>
+            <p class="centrado" >Su paquete llegará a la dirección especificada en los siguientes días</p>
+            <br>
+            <br>
+          </div>
+
+          <div class="salmon">
+            <h2 class="fuente">  Obtené un 30% OFF en tu próxima compra </h2>
+            <button mat-raised-button color="warn" (click)="terminarYRedirijir()">Volver a la tienda</button>
+          </div>
+
+
+          
+          <div *ngIf="!compraTerminada">
+            Por favor, rellene los formularios de los pasos anteriores
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
 </div>

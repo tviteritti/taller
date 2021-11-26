@@ -11,8 +11,9 @@ import { VentaService } from 'src/app/SERVICES/venta.service';
   styleUrls: ['./terminar-compra.component.css']
 })
 export class TerminarCompraComponent implements OnInit {
-
+  ImagePath: string;
   constructor(private route: ActivatedRoute,private router: Router,private carritoService: CarritoService,private ClienteService:ClienteService, private VentaService:VentaService) {
+    this.ImagePath = '/assets/shop.png'
   }
 
   public compraTerminada = false;
@@ -72,7 +73,7 @@ export class TerminarCompraComponent implements OnInit {
   public agregarAlCarrito(id:number) {
     console.log('agregar al carrito');
     this.carritoService.agregarAlCarrito(this.idVenta, id).subscribe(data => { });
-    window.location.reload();
+    
   }
   public quitarDelCarrito(id:number) {
     console.log('agregar al carrito');
@@ -81,10 +82,15 @@ export class TerminarCompraComponent implements OnInit {
   }
 
   public terminarYRedirijir(){      
-    this.router.navigate(['home/' + this.email]);
+    this.router.navigate(['home/' + this.email]).then(()=>{
+      window.location.reload();
+    })    ;
   }
   public rutaImagen(nombre:string){      
     return "../../../assets/fotos_productos/"+ nombre;
   }
+
+
+
 
 }
