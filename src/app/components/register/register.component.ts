@@ -22,6 +22,14 @@ export class RegisterComponent implements OnInit {
 
   alertaRegistro:boolean=false;
 
+  validateUserNameEqualsEmail(){
+    if (this.register.username.toLowerCase() !== this.register.email.toLowerCase()) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   submit(){
 
@@ -29,6 +37,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   registerPost(){
+    try {
+      if (this.validateUserNameEqualsEmail()) {
+        alert("el nombre de usuario debe ser igual al email")
+        return;
+      }
 
       var user = Auth.signUp({
         username: this.register.username,
@@ -40,9 +53,9 @@ export class RegisterComponent implements OnInit {
       this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
       console.log({user});
       this.router.navigate(['login']);
-      user.catch((data)=>{
-          alert(data)
-      });
+    } catch (error) {
+      this.alertaRegistro = true;
+    }
   }
 
   closeAlert(){
