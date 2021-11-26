@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class VentaService {
 
   url = '/api/carritoCompra'; 
-  url2 = '/api/obteberIdvent';
+  url2 = '/api/obtenerIdvent';
+  url3 = '/api/terminarCompra';
 
   constructor(private http: HttpClient) { }
 
@@ -16,5 +17,8 @@ export class VentaService {
   }
   public obtenerIdVenta(id: number) {
     return this.http.post(this.url2,{id: id,});
+  }
+  public terminarCompra(idVenta: number) {
+    return this.http.post(this.url3,{idV: idVenta,});
   }
 }

@@ -49,8 +49,12 @@ export class HomeComponent implements OnInit {
   public total() {
     // Quién te conoce reduce
     let total = 0;
-    this.carrito.forEach((p: { precio: number; }) => total += p.precio);
+    this.carrito.forEach((p: { precio: number; cantidad: number;}) => total += p.precio*p.cantidad);
     return total;
+  }
+  public rutaTerminar() {
+    let ruta = "/terminar_compra/" + this.email
+    return ruta;
   }
   
   

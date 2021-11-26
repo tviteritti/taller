@@ -11,15 +11,17 @@ export class CarritoService {
   constructor(private http: HttpService, private httpClient:HttpClient) {
   }
 
-  public async quitarProducto(idProducto: number) {
-    return await this.http.post("/carrito/eliminar", {
-      id: idProducto,
+  public quitarProducto(idVenta:number,idProducto: number) {
+    return this.httpClient.post("/api/carrito/eliminar", {
+      idV: idVenta,
+      idP: idProducto,
     });
   }
 
-  public async agregarAlCarrito(idProducto: number) {
-    return await this.httpClient.post("/carrito/agregar", {
-      id: idProducto,
+  public agregarAlCarrito(idVenta:number,idProducto: number) {
+    return this.httpClient.post("/api/carrito/agregar", {
+      idV: idVenta,
+      idP: idProducto,
     });
   }
 

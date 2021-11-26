@@ -1,0 +1,111 @@
+<div class="contenedor-padre">
+  <mat-toolbar class="barra" color="primary">
+    <mat-toolbar-row>
+      <button (click)="cajon.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>
+        DressCode
+      </span>
+      <span class="example-fill-remaining-space"></span>
+      <button mat-raised-button [matMenuTriggerFor]="menu" color="#e1f5fe">
+        <mat-icon> shopping_cart</mat-icon>
+        <span style="margin-right: 10px;" [matBadge]="carrito.length+''" matBadgeOverlap="false"
+          matBadgePosition="after" matBadgeColor="warn">Mis compras</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let c of carrito;">{{c.nombre}} {{c.precio | currency}} <span
+            class="text-danger">X{{c.cantidad}}</span></button>
+        <button mat-menu-item>
+          <strong>Total: {{total() | currency}}</strong>
+        </button>
+      </mat-menu>
+      <a style="margin-left: 10px" mat-raised-button color="primary" href="https://www.unlam.edu.ar/" target="_blank">
+        <mat-icon>help_outline</mat-icon>
+      </a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="contenido">
+    <mat-sidenav style="min-width: 300px;" #cajon opened mode="side">
+      <mat-nav-list>
+        <button mat-list-item (click)="terminarYRedirijir()">
+          <mat-icon color="primary">add_circle</mat-icon>
+          &nbsp;Agregar mas productos 
+        </button>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="padding-10">
+
+        <mat-horizontal-stepper #stepper linear>
+          <mat-step label="Revisar total">
+
+            <div *ngFor="let c of carrito;">
+              <div class="d-flex justify-content-around pb-5">
+                <div>
+                  <img [src]="rutaImagen(c.foto)" alt="" width=100px;>
+                </div>
+                <div>
+                  {{c.nombre}} {{c.precio | currency}} 
+                  <span class="text-danger">X{{c.cantidad}}</span>
+                </div>
+                <div>
+                  <button (click)="agregarAlCarrito(c.id)" class="carrito" mat-raised-button color="accent">
+                  
+                    <mat-icon>add_shopping_cart</mat-icon>
+                    Agregar al carrito
+                  </button>
+                  <button (click)="quitarDelCarrito(c.id)" class="carrito" mat-raised-button color="accent">
+                    <mat-icon>delete</mat-icon>
+                    Quitar del carrito
+                  </button>
+                </div>
+              </div>
+            </div>
+          
+            
+            <h2>Total: {{total() | currency}}</h2>
+            <button matStepperNext mat-raised-button color="primary">Continuar
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </mat-step>
+          <mat-step label="Datos del cliente">
+            <p>
+              
+                <input matInput [(ngModel)]="clienteModel.nombre"
+                      type="text"
+                      placeholder="Nombre">
+            
+            </p>
+            <p>
+              
+              <textarea rows="10" matInput [(ngModel)]="clienteModel.direccion"
+                        placeholder="Dirección de envío"></textarea>
+              
+            </p>
+            <button matStepperPrevious mat-raised-button color="primary">
+              <mat-icon>arrow_back</mat-icon>
+              Volver
+            </button>
+            &nbsp;
+            <button (click)="revisarYTerminar(stepper)" mat-raised-button color="warn">Terminar compra
+              <mat-icon>check</mat-icon>
+            </button>
+          </mat-step>
+          <mat-step label="Gracias por su compra">
+            <div *ngIf="compraTerminada">
+              <h2 class="mat-display-3">¡Gracias por su compra!</h2>
+              <img src="assets/order-complete.png" alt="*inserte imagen*">
+              <p>Su paquete llegará a la dirección especificada en los siguientes días</p>
+              <button (click)="terminarYRedirijir()">Inicio</button>
+            </div>
+            <div *ngIf="!compraTerminada">
+              Por favor, rellene los formularios de los pasos anteriores
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+<router-outlet></router-outlet>
+</mat-sidenav-content>
+</mat-sidenav-container>
+
+</div>

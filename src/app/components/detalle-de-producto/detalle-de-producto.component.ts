@@ -38,7 +38,7 @@ export class DetalleDeProductoComponent implements OnInit {
     this.fotoSeleccionada = this.producto.fotos[this.indiceSeleccionado].foto;
   }
 
-  public async quitarDelCarrito() {
+/*   public async quitarDelCarrito() {
     const {id} = this.producto;
     const respuesta = await this.carritoService.quitarProducto(id);
     console.log({respuesta})
@@ -50,7 +50,7 @@ export class DetalleDeProductoComponent implements OnInit {
     const respuesta = await this.carritoService.agregarAlCarrito(id);
     console.log({respuesta})
     this.refrescarEstado();
-  }
+  } */
 
   async refrescarEstado() {
     const id = this.producto.id;

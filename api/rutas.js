@@ -1,6 +1,6 @@
 const rutas = require('express').Router();
 require("dotenv").config();
-
+var passwordValidator = require('password-validator');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 const poolData = {
@@ -48,6 +48,7 @@ rutas.post('/login', function (req, res) {
     const { email, username, password } = req.body;
     console.log(email);
 
+
      var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
         Username : username,
         Password : password,
@@ -71,20 +72,70 @@ rutas.post('/login', function (req, res) {
 
     });
 });
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+const validatePass = (pass) => {
+  var schema = new passwordValidator();
 
+  schema
+  .is().min(8)                                    // Minimum length 8
+  .is().max(100)                                  // Maximum length 100
+  .has().uppercase()                              // Must have uppercase letters
+  .has().lowercase()                              // Must have lowercase letters
+  .has().digits(1)                                // Must have at least 2 digits
+  .has().not().spaces()
+  .has().symbols()
+  return schema.validate(pass)
+
+
+
+}
+const validationResult = (req) => {
+  var errors = [];
+  var errorUsername = "Cambiar username tiene que ser un mail valido "
+  var errorEmail = "Cambiar email tiene que ser un mail valido "
+  var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
+  const { email, username, password } = req.body
+  if(!validateEmail(email)){
+
+    errors[0]= errorEmail;
+    console.log(errors[0])
+  }
+  if(!validateEmail(username)){
+
+    errors[1]= errorUsername;
+    console.log(errors [1])
+
+  }
+  if(!validatePass(password)){
+
+    errors [2] = errorPassword;
+    console.log(errors[2])
+    }
+
+
+  return errors;
+}
 rutas.post('/register', function (req, res) {
     const { email, username, password } = req.body;
+    const errors =validationResult(req);
+
+    if (errors.length>0) {
+      console.log(errors)
+        return res.status(400).json({
+            success: false,
+            errors: errors
+        });
+    }
     console.log("pase por el post de register bro")
 
     var attributeList = [];
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:email}));
-   // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"preferred_username",Value:"jay"}));
-    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"gender",Value:"male"}));
-    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"birthdate",Value:"1991-06-21"}));
-    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"address",Value:"CMB"}));
-    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:"sampleEmail@gmail.com"}));
-   // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:"+5412614324321"}));
-    //attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:scope",Value:"admin"}));
 
     userPool.signUp(username, password, attributeList, null,
     function(err, result){
@@ -107,14 +158,14 @@ rutas.get('/login', function (req, res) {
 
 rutas.get("/product",async (req, res) => {
 
-      const producto = await productModel.obtener();
+      const producto = await productModel.obtenerConFotos();
       res.json(producto);
 });
 rutas.post("/product",async (req, res) => {
     console.log("pase por el product post")
 
     const producto = req.body;
-    const respuesta = await productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio);
+    const respuesta = await productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio,producto.foto);
     res.json(respuesta);
 });
 rutas.get("/ventas", async (req, res) => {
@@ -157,13 +208,13 @@ rutas.post("/carritoCompra", async (req, res) => {
      const producto = await ventaModel.obtenerProductosVendidos(id);
       res.json(producto);
 });
-  
-rutas.post("/obteberIdcliente", async (req, res) => {
+
+rutas.post("/obtenerIdcliente", async (req, res) => {
   const email = req.body.email;
      const id = await clienteModel.obtenerId(email);
       res.json(id);
   });
-rutas.post("/obteberIdvent", async (req, res) => {
+rutas.post("/obtenerIdvent", async (req, res) => {
     const idC = req.body.id;
      const id = await ventaModel.obtenerIdVenta(idC);
       res.json(id);
@@ -171,6 +222,7 @@ rutas.post("/obteberIdvent", async (req, res) => {
 rutas.post("/registro", async (req, res) => {
     const {nombre,contraseña,apellido,direccion,email} = req.body;
      const cliente = await clienteModel.insertar(nombre,contraseña,apellido,direccion,email);
+     const venta = await ventaModel.insertar(cliente,0);
       res.json(cliente);
   });
   rutas.post("/carrito/existe", async (req, res) => {
@@ -180,19 +232,54 @@ rutas.post("/registro", async (req, res) => {
     res.json(existe);
   });
 
-  rutas.post("/carrito/agregar", async (req, res) => {
-    const idProducto = req.body.id;
-    const producto = await productModel.obtenerPorId(idProducto);
-    if (!req.session.carrito) {
-      req.session.carrito = [];
+rutas.post("/carrito/agregar", async (req, res) => {
+    const { idV, idP } = req.body;
+    let cantidad = 0;
+    let producto;
+
+  cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
+  if (cantidad !== undefined && cantidad !== NaN) {
+    cantidad = cantidad.cantidad
+  } else {
+    cantidad = 0;
+  }
+
+  cantidad++;
+    if (cantidad === 1) {
+      producto = await productoVendidoModel.insertar(idV,idP,cantidad);
+
+    } else {
+      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);
     }
-    // por el momento no se pueden llevar más de dos productos iguales
-    if (existeProducto(req.session.carrito, producto)) {
-      res.json(true);
-      return;
-    }
-    req.session.carrito.push(producto);
-    res.json(req.body);
+      res.json(producto);
   });
+
+  rutas.post("/carrito/eliminar", async (req, res) => {
+    const { idV, idP } = req.body;
+    let cantidad = 0;
+    let producto;
+
+    cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
+      if (cantidad !== undefined && cantidad !== NaN) {
+      cantidad = cantidad.cantidad
+      } else {
+        res.json('no hay en el carrito');
+        return;
+    }
+
+    cantidad--;
+    if (cantidad === 0) {
+      producto = await productoVendidoModel.eliminar(idV,idP,cantidad);
+
+    } else {
+      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);
+    }
+      res.json(producto);
+  });
+  rutas.post("/terminarCompra", async (req, res) => {
+    const idV = req.body.idV;
+    const productoVenta = await ventaModel.terminarCompraProductoVendido(idV);
+      res.json(productoVenta);
+});
 
 module.exports = rutas;
