@@ -47,7 +47,7 @@ rutas.post('/login', function (req, res) {
     /* res.send('hola inicio'); */
     const { email, username, password } = req.body;
     console.log(email);
-   
+
 
      var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
         Username : username,
@@ -89,11 +89,11 @@ const validatePass = (pass) => {
   .has().lowercase()                              // Must have lowercase letters
   .has().digits(1)                                // Must have at least 2 digits
   .has().not().spaces()
-  .has().symbols()                          
+  .has().symbols()
   return schema.validate(pass)
- 
 
- 
+
+
 }
 const validationResult = (req) => {
   var errors = [];
@@ -102,7 +102,7 @@ const validationResult = (req) => {
   var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
   const { email, username, password } = req.body
   if(!validateEmail(email)){
-  
+
     errors[0]= errorEmail;
     console.log(errors[0])
   }
@@ -113,18 +113,18 @@ const validationResult = (req) => {
 
   }
   if(!validatePass(password)){
- 
+
     errors [2] = errorPassword;
     console.log(errors[2])
     }
-  
-  
+
+
   return errors;
 }
 rutas.post('/register', function (req, res) {
     const { email, username, password } = req.body;
     const errors =validationResult(req);
-    
+
     if (errors.length>0) {
       console.log(errors)
         return res.status(400).json({
@@ -208,7 +208,7 @@ rutas.post("/carritoCompra", async (req, res) => {
      const producto = await ventaModel.obtenerProductosVendidos(id);
       res.json(producto);
 });
-  
+
 rutas.post("/obtenerIdcliente", async (req, res) => {
   const email = req.body.email;
      const id = await clienteModel.obtenerId(email);
@@ -236,20 +236,20 @@ rutas.post("/carrito/agregar", async (req, res) => {
     const { idV, idP } = req.body;
     let cantidad = 0;
     let producto;
-  
+
   cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
   if (cantidad !== undefined && cantidad !== NaN) {
     cantidad = cantidad.cantidad
   } else {
     cantidad = 0;
   }
-    
+
   cantidad++;
     if (cantidad === 1) {
       producto = await productoVendidoModel.insertar(idV,idP,cantidad);
-      
+
     } else {
-      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);    
+      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);
     }
       res.json(producto);
   });
@@ -258,7 +258,7 @@ rutas.post("/carrito/agregar", async (req, res) => {
     const { idV, idP } = req.body;
     let cantidad = 0;
     let producto;
-    
+
     cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
       if (cantidad !== undefined && cantidad !== NaN) {
       cantidad = cantidad.cantidad
@@ -266,13 +266,13 @@ rutas.post("/carrito/agregar", async (req, res) => {
         res.json('no hay en el carrito');
         return;
     }
-      
+
     cantidad--;
     if (cantidad === 0) {
       producto = await productoVendidoModel.eliminar(idV,idP,cantidad);
-      
+
     } else {
-      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);    
+      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);
     }
       res.json(producto);
   });

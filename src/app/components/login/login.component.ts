@@ -22,10 +22,6 @@ export class LoginComponent implements OnInit {
 
   alertaLogin:boolean=false;
 
-
-
-
-
   ngOnInit(): void {
   }
 
