@@ -44,3 +44,26 @@ margin: auto;
   padding-top: 2%;
 }
  
+.gracias{
+  text-align: center;
+  font-size: 30px; 
+  font-weight: 800; 
+  line-height: 36px; 
+  color: #333333; 
+  margin: 0;
+}
+
+.salmon{
+  text-align:center;
+  color: white;
+  padding: 35px; background-color: #ff7361;
+}
+
+.fuente{
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.centrado{
+  text-align: center;
+}

@@ -11,8 +11,9 @@ import { VentaService } from 'src/app/SERVICES/venta.service';
   styleUrls: ['./terminar-compra.component.css']
 })
 export class TerminarCompraComponent implements OnInit {
-
+  ImagePath: string;
   constructor(private route: ActivatedRoute,private router: Router,private carritoService: CarritoService,private ClienteService:ClienteService, private VentaService:VentaService) {
+    this.ImagePath = '/assets/shop.png'
   }
 
   public compraTerminada = false;
@@ -88,5 +89,8 @@ export class TerminarCompraComponent implements OnInit {
   public rutaImagen(nombre:string){      
     return "../../../assets/fotos_productos/"+ nombre;
   }
+
+
+
 
 }
