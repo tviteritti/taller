@@ -1,3 +1,4 @@
+import { CheckLoginGuard } from './guards/check-login.guard';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,11 +13,11 @@ const routes: Routes = [
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent,  pathMatch: 'full'},
   { path: 'register', component: RegisterComponent,  pathMatch: 'full'},
-  { path: 'home/:email', component: HomeComponent},
-  { path: 'tienda', component: TiendaComponent},
-  { path: 'agregarProducto', component: AgregarProductoComponent },  
-  {path: 'terminar_compra/:email', component: TerminarCompraComponent},
-  { path: '**', component:PageNotFoundComponent }
+  { path: 'home/:email', component: HomeComponent, canActivate:[CheckLoginGuard]},
+  { path: 'tienda', component: TiendaComponent, canActivate:[CheckLoginGuard]},
+  { path: 'agregarProducto', component: AgregarProductoComponent, canActivate:[CheckLoginGuard]},
+  {path: 'terminar_compra/:email', component: TerminarCompraComponent, canActivate:[CheckLoginGuard]},
+  { path: '**', component:PageNotFoundComponent, canActivate:[CheckLoginGuard] }
 ];
 
 @NgModule({

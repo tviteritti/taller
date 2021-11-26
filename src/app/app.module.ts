@@ -23,6 +23,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { CookieService } from 'ngx-cookie-service';
 
 import Amplify from '@aws-amplify/core';
 import { ProductosComponent } from './components/productos/productos.component';
@@ -34,15 +35,6 @@ import { DetalleDeProductoComponent } from './components/detalle-de-producto/det
 import { VentasComponent } from './components/ventas/ventas.component';
 import { TerminarCompraComponent } from './components/terminar-compra/terminar-compra.component';
 //import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
-
-
-
-
-
-
-
-
 
 
 Amplify.configure({
@@ -93,7 +85,7 @@ Amplify.configure({
     MatStepperModule,
     MatFormFieldModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
