@@ -26,6 +26,7 @@ export class AgregarProductoComponent implements OnInit {
   ngOnInit(): void {  }
 
    guardar() {
+      
     if (!this.productoModel.nombre) {
        this.alertaNombre = true;
     }
@@ -58,9 +59,15 @@ export class AgregarProductoComponent implements OnInit {
     });
     this.router.navigate(["/home/"+this.email])
     }   
-  
   }
+  volver() {
+    this.route.queryParams.subscribe(params => {
+        this.email = params['user'];
+ 
+    });
+    this.router.navigate(["/home/"+this.email])
 
+}
     closeAlert(){
           this.alert=false
           this.alertaNombre=false
