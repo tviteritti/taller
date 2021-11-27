@@ -50,6 +50,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
+
   closeAlert(){
     this.alertaLogin = false;
   }

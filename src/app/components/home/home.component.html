@@ -14,19 +14,19 @@
           matBadgePosition="after" matBadgeColor="warn">Mis compras</span>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let c of carrito;">{{c.nombre}}  <span class="text-danger" style="text-align:right">X{{c.cantidad}}</span></button>
-        <button mat-menu-item style="text-align: center;">
+        <button mat-menu-item *ngFor="let c of carrito;">{{c.nombre}} {{c.precio | currency}} <span class="text-danger">X{{c.cantidad}}</span></button>
+        <button mat-menu-item>
           <strong>Total: {{total() | currency}}</strong>
         </button>
-        <a *ngIf="productos.length > 0" mat-menu-item routerLink={{rutaTerminar()}} class="text-danger">
-          <mat-icon class="carritoIcon">shopping_cart</mat-icon>
+        <a *ngIf="productos.length > 0" mat-menu-item routerLink={{rutaTerminar()}}>
+          <mat-icon>shopping_cart</mat-icon>
           Terminar compra
         </a>
       </mat-menu>
       <a style="margin-left: 10px" mat-raised-button color="primary" href="https://www.unlam.edu.ar/" target="_blank">
         <mat-icon>help_outline</mat-icon>
       </a>
-      <a style="margin-left: 10px" mat-raised-button color="primary" href="login" target="_blank">
+      <a (click)="logout()" style="margin-left: 10px" mat-raised-button color="primary" >
         <mat-icon>logout</mat-icon>
       </a>
     </mat-toolbar-row>
@@ -45,7 +45,6 @@
       <div class="product-grid">
         <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
       </div>
-     
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

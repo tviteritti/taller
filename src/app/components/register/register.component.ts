@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit {
       .match(
         /^(?=(?:^\w))([A-Za-z ]+)(?<=[^ ])$/
         );
-      //.match(/^(?!\s*$).+/)
   };
   validateLastName = (apellido:string) => {
     return String(apellido)
@@ -81,13 +80,12 @@ export class RegisterComponent implements OnInit {
   validationResult = (nombre: string, contraseña: string, apellido: string, direccion: string, email: string) => {
     var errors = [];
     var errorUsername = "Cambiar username tiene que ser un mail valido "
-    var errorEmail = "Cambiar email tiene que ser un mail valido "
+    var errorEmail = "Email tiene que ser un mail valido "
     var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
     var errorName= "El campo nombre no puede estar vacio y no puede contener caracteres especiales"
     var errorLastName= "El campo apellido no puede estar vacio y no puede contener caracteres especiales"
     var errorAddress= "El campo direccion no puede estar vacio y no puede contener caracteres especiales(solo letras y números)"
     
-    console.log("campo nombre " + nombre)
     var i = 0;
     if(!this.validateEmail(email)){
     
@@ -108,17 +106,19 @@ export class RegisterComponent implements OnInit {
       console.log(errors[i])
       i++;
       }
-    if(!this.validateName(nombre) ){
+    if(!this.validateName(nombre)){
+      console.log("Pase por validacion de name ")
       errors [i] = errorName;
       console.log(errors[i])
       i++;
     }
-    if(!this.validateLastName(apellido) ){
+    if(!this.validateLastName(apellido)){
+      console.log("Pase por validacion de apellido ")
       errors [i] = errorLastName;
       console.log(errors[i])
       i++;
     }
-    if(!this.validateAddress(direccion) ){
+    if(!this.validateAddress(direccion)){
       errors [i] = errorAddress;
       console.log(errors[i])
       i++;
@@ -134,10 +134,11 @@ export class RegisterComponent implements OnInit {
   }
   error = false;
   registerPost(){
+    var errors=[]=this.validationResult(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email)
+
     try {
 
 
-      var errors=[]=this.validationResult(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email)
       if(errors.length==0){
       var user = Auth.signUp({
         username: this.register.email,
@@ -149,14 +150,30 @@ export class RegisterComponent implements OnInit {
       this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
       console.log({user});
       this.router.navigate(['login']);
+     /*  user.catch((data)=>{
+        alert(data)
+      }) */
     }else{
-      this.error = true;
+ 
+      throw true;
+
           }
    } catch (error) {
       this.alertaRegistro = true;
+      var i=0;
+      var termino = false;
+      while(!termino){
+      if(errors[i].length>0){
+        alert(errors[i]= errors[i] + "/n")
+        i++;
+        
+      }else{
+        termino = true;
+      }
+    }
     }
   }
-
+ 
   closeAlert(){
     this.alertaRegistro = false;
   }
