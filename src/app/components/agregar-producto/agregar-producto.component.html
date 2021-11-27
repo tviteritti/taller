@@ -37,6 +37,8 @@
           </button>
         </div> 
 
+        
+   
      
       </div>
     
@@ -75,14 +77,14 @@
 
       <div class="form-group">
         <div class="col-10">  
-          <input type="hidden" class="form-control"  [(ngModel)]="productoModel.foto">
+          <input type="hidden" class="form-control"  value="remera_negra_lisa.jpg">
         </div>
       </div>
 
 
       <div class="col-10">
       <div class="float-right ">
-        <a class="prolijo "  routerLink="/home" mat-raised-button>Volver</a>
+        <button class="prolijo " (click)="volver()" mat-raised-button>Volver</button>
         <button class="prolijo" mat-raised-button color="primary" texto="Guardar" (click)="guardar()">Guardar</button>
       </div>
     </div>

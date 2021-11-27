@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
       }
 
       var user = Auth.signUp({
-        username: this.register.username,
+        username: this.register.email,
         password: this.register.password,
         attributes: {
           email: this.register.email

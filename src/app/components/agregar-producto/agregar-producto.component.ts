@@ -1,4 +1,3 @@
-
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
@@ -27,6 +26,7 @@ export class AgregarProductoComponent implements OnInit {
   ngOnInit(): void {  }
 
    guardar() {
+      
     if (!this.productoModel.nombre) {
        this.alertaNombre = true;
     }
@@ -45,27 +45,29 @@ export class AgregarProductoComponent implements OnInit {
 
     else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio ){
       this.cargando = true;
-      // Guardamos producto
-      console.log(this.productoModel)
+   
       const idProductoGuardado= this.productosService.agregarProducto(this.productoModel);  
-      // Y luego las fotos
-      //const fd = new FormData();  
-      //fd.append("idProducto", idProductoGuardado);
+
     
   
       this.cargando = false;
-      //this.productoModel = new Producto("", "","","","");  
       this.alert=true;
-      //this.router.navigate(['home/'+this.user.email]);  
+
       this.route.queryParams.subscribe(params => {
         this.email = params['user'];
  
     });
     this.router.navigate(["/home/"+this.email])
     }   
-  
   }
+  volver() {
+    this.route.queryParams.subscribe(params => {
+        this.email = params['user'];
+ 
+    });
+    this.router.navigate(["/home/"+this.email])
 
+}
     closeAlert(){
           this.alert=false
           this.alertaNombre=false
