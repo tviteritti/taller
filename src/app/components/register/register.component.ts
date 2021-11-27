@@ -38,10 +38,6 @@ export class RegisterComponent implements OnInit {
   }
   registerPost(){
     try {
-      if (this.validateUserNameEqualsEmail()) {
-        alert("el nombre de usuario debe ser igual al email")
-        return;
-      }
 
       var user = Auth.signUp({
         username: this.register.email,
@@ -51,8 +47,11 @@ export class RegisterComponent implements OnInit {
         }
       });
       this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
-      console.log({user});
-      this.router.navigate(['login']);
+
+      user.catch((data)=>{
+        alert(data)
+      })
+
     } catch (error) {
       this.alertaRegistro = true;
     }
