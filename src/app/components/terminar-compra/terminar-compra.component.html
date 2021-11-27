@@ -61,20 +61,21 @@
                     Quitar
                   </button>
                 </div>
-                
-
-                <button matStepperNext mat-raised-button color="primary" class="peque">Continuar
-                  <mat-icon>arrow_forward</mat-icon>
-                </button>
-
-
               </div>
             </div>
           </div>
 
+<div class="izquierda">
+  <h2>Total: {{total() | currency}}</h2>
+</div>
+          
+  <div>
+    
+    <button matStepperNext mat-raised-button color="primary" class="peque">Continuar
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
 
-          <h2>Total: {{total() | currency}}</h2>
-        
+  </div>      
         </mat-step>
         <mat-step  label="Datos del cliente">
           <div class="breath"> 
