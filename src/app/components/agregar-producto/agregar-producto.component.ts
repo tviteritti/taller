@@ -76,24 +76,12 @@ return errors;
    guardar() {
       
     var errors=[]=this.validationResult(this.productoModel.nombre,this.productoModel.clasificacion,this.productoModel.descripcion,this.productoModel.precio )
-    
-   /* if (!this.productoModel.nombre) {
-       this.alertaNombre = true;
-    }
-    if (!this.productoModel.clasificacion) {
-       this.alertaClasificacion = true;
-    }
-    if (!this.productoModel.descripcion) {
-       this.alertaDescripcion = true;
-    }
-    if (!this.productoModel.precio) {
-      this.alertaPrecio = true; 
-    }*/
+
 
     try {
     if(errors.length==0){
 
-    this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio 
+  
       
       this.productosService.agregarProducto(this.productoModel);  
       this.alert=true;

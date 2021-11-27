@@ -26,7 +26,6 @@ export class ProductosService {
 
   public async obtenerProductos() {
     
-
     return await this.http.get(this.url);
   }
 

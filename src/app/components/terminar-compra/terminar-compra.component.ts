@@ -30,14 +30,8 @@ export class TerminarCompraComponent implements OnInit {
   carrito: any = [];
 
   public async revisarYTerminar(stepper: any) {
-    if (!this.clienteModel.direccion) {
-      return alert("Falta escribir la dirección del cliente");
-    }
-    if (!this.clienteModel.nombre) {
-      return alert("Falta escribir el nombre del cliente");
-    }
+ 
     this.VentaService.terminarCompra(this.idVenta).subscribe(data => { });
-
 
     this.compraTerminada=true;
     stepper.next();
@@ -50,7 +44,6 @@ export class TerminarCompraComponent implements OnInit {
   }
 
   async ngOnInit() {
-    /* await this.obtenerProductos(); */
     this.email = this.route.snapshot.params['email'];
 
     this.ClienteService.obtenerId(this.email).subscribe(data => {   

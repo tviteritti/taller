@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
   }
   validationResult = (nombre: string, contraseña: string, apellido: string, direccion: string, email: string) => {
     var errors = [];
-    var errorEmail = "Email tiene que ser un mail valido "
+    var errorEmail = "Email tiene que ser un mail valido"
     var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
     var errorName= "El campo nombre no puede estar vacio y no puede contener caracteres especiales"
     var errorLastName= "El campo apellido no puede estar vacio y no puede contener caracteres especiales"
@@ -141,7 +141,7 @@ export class RegisterComponent implements OnInit {
       var termino = false;
       while(!termino){
       if(errors[i].length>0){
-        alert(errors[i]= errors[i])
+        alert(errors[i])
         i++;
         
       }else{
