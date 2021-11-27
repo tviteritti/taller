@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout(){
-    this.cookieService.delete('token_access');
+    this.cookieService.delete('token_access', '/');
     this.router.navigate(["/login"]);
   }
 
