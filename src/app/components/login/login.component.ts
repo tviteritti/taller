@@ -35,13 +35,10 @@ export class LoginComponent implements OnInit {
     try {
 
       var user = await Auth.signIn(this.user.email.toString(), this.user.password.toString());
-      console.log('Email = ' + this.user.email + ' pass= ' + this.user.password);
       var tokens =  user.signInUserSession;
       var tokenDeRespuesta = user.signInUserSession.accessToken.jwtToken;
-      console.log("token: " + user.signInUserSession.accessToken.jwtToken);
       if(tokens != null){
         this.cookieService.set('token_access', tokenDeRespuesta, 4, '/' );
-        console.log('User authenticated');
         this.router.navigate(['home/'+this.user.email]);
 
       }

@@ -18,18 +18,12 @@ export class ProductosService {
 
 
   public async agregarProducto(producto: Producto) {
-    console.log("service front")
+
   
     return await this.http.post(this.url, producto).toPromise();
     
   }
-  /*
-  El formdata debe tener el id del producto
-   
-  public async agregarFotosDeProducto(fotos: FormData) { //no compila por el httpClient
-    return await this.http.formdata("/fotos_producto", fotos);
-  }
-*/
+
   public async obtenerProductos() {
     
 

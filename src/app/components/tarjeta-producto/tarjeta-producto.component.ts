@@ -18,7 +18,7 @@ export class TarjetaProductoComponent implements OnInit {
 
   constructor(private router: Router, private serviceCarrito: CarritoService,private route: ActivatedRoute, private VentaService:VentaService, private ClienteService:ClienteService) {
   }
-
+  
   ngOnInit(): void {
      this.email = this.route.snapshot.params['email'];
 
@@ -41,13 +41,11 @@ export class TarjetaProductoComponent implements OnInit {
   }
 
   public agregarAlCarrito(id:number) {
-    console.log('agregar al carrito');
-    this.serviceCarrito.agregarAlCarrito(this.idVenta, id).subscribe(data => { });
+    this.serviceCarrito.agregarAlCarrito(this.idVenta, id).subscribe(() => { });
     window.location.reload();
   }
   public quitarDelCarrito(id:number) {
-    console.log('agregar al carrito');
-    this.serviceCarrito.quitarProducto(this.idVenta, id).subscribe(data => { });
+    this.serviceCarrito.quitarProducto(this.idVenta, id).subscribe(() => { });
     window.location.reload();
   }
 

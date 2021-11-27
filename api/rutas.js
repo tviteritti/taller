@@ -29,7 +29,6 @@ const validateName = (name) => {
     .match(
       /^(?=(?:^\w))([A-Za-z ]+)(?<=[^ ])$/
       );
-    //.match(/^(?!\s*$).+/)
 };
 const validateLastName = (apellido) => {
   return String(apellido)
@@ -61,6 +60,14 @@ const validatePass = (pass) => {
 
  
 }
+
+const validatePrice = (price) => {
+  return String(price)
+    .toLowerCase()
+    .match(
+      /^(?=(?:^\w))([0-9 ]+)(?<=[^ ])$/
+      );
+};
 const validationResult = (req) => {
   var errors = [];
   var errorUsername = "Cambiar username tiene que ser un mail valido "
@@ -109,7 +116,38 @@ const validationResult = (req) => {
   
   return errors;
 }
+const validationResultProduct = (req) => {
+  var errors = [];
+  var errorName= "El campo nombre no puede estar vacio y no puede contener caracteres especiales"
+  var errorClasificacion= "El campo clasificacion no puede estar vacio y no puede contener caracteres especiales"
+  var errorDescripcion= "El campo descripcion no puede estar vacio y no puede contener caracteres especiales(solo letras y números)"
+  var errorPrice= "El campo precio solo puede contener dígitos"
 
+  const { nombre,clasificacion,descripcion,precio } = req.body
+  console.log("campo nombre " + nombre)
+  var i = 0;
+  if(!validateName(nombre) ){
+    errors [i] = errorName;
+    console.log(errors[i])
+    i++;
+  }
+  if(!validateName(clasificacion) ){
+    errors [i] = errorClasificacion;
+    console.log(errors[i])
+    i++;
+  }
+  if(!validateName(descripcion) ){
+    errors [i] = errorDescripcion;
+    console.log(errors[i])
+    i++;
+  }
+  if(!validatePrice(precio) ){
+    errors [i] = errorPrice;
+    console.log(errors[i])
+    i++;
+  }
+  return errors;
+}
 
 rutas.get("/product",async (req, res) => {
 
@@ -117,10 +155,18 @@ rutas.get("/product",async (req, res) => {
       res.json(producto);
 });
 rutas.post("/product",async (req, res) => {
-
+    var errors=[]=validationResultProduct(req)
+    if(errors.length==0){
     const producto = req.body;
     const respuesta = await productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio,producto.foto);
     res.json(respuesta);
+    }else{
+      console.log("Fallo agregar producto")
+      res.status(400).json({
+        message:"Problema con el agregado de producto",
+        errors: errors,
+      });
+    }
 });
 rutas.get("/ventas", async (req, res) => {
     const ventas = await ventaModel.obtener();
@@ -160,7 +206,6 @@ rutas.post("/registro", async (req, res) => {
     if(errors.length==0){
      const cliente = await clienteModel.insertar(nombre,contraseña,apellido,direccion,email);
      await ventaModel.insertar(cliente,0);
-     console.log("Registro exitoso ")
       res.json(cliente);
     }
     else{

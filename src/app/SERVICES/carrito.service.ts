@@ -24,17 +24,4 @@ export class CarritoService {
     });
   }
 
-  /* public async existeEnCarrito(idProducto: number) {
-    return await this.http.post("/carrito/existe", {
-      id: idProducto,
-    });
-  }
-
-  async obtenerProductos() {
-    return await this.http.get("/carrito");
-  }
-
-  async terminarCompra(datosCliente: any) {
-    return await this.http.post("/compra", datosCliente);
-  } */
 }

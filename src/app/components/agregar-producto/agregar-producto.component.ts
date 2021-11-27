@@ -24,10 +24,60 @@ export class AgregarProductoComponent implements OnInit {
   public cargando = false;
   
   ngOnInit(): void {  }
+  error = false;
 
+  validateName = (name:string) => {
+    return String(name)
+      .toLowerCase()
+      .match(
+        /^(?=(?:^\w))([A-Za-z ]+)(?<=[^ ])$/
+        );
+        
+  };
+   validatePrice = (price:string) => {
+    return String(price)
+      .toLowerCase()
+      .match(
+        /^(?=(?:^\w))([0-9 ]+)(?<=[^ ])$/
+        );
+  }; 
+  validationResult=(nombre: string, clasificacion: string, descripcion: string, precio: string)=> {
+//    const respuesta = await productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio,producto.foto);
+var errors = [];
+var errorName= "El campo nombre no puede estar vacio y no puede contener caracteres especiales"
+var errorClasificacion= "El campo clasificacion no puede estar vacio y no puede contener caracteres especiales"
+var errorDescripcion= "El campo descripcion no puede estar vacio y no puede contener caracteres especiales(solo letras y números)"
+var errorPrice= "El campo precio solo puede contener dígitos"
+
+console.log("campo nombre " + nombre)
+var i = 0;
+if(!this.validateName(nombre) ){
+  errors [i] = errorName;
+  console.log(errors[i])
+  i++;
+}
+if(!this.validateName(clasificacion) ){
+  errors [i] = errorClasificacion;
+  console.log(errors[i])
+  i++;
+}
+if(!this.validateName(descripcion) ){
+  errors [i] = errorDescripcion;
+  console.log(errors[i])
+  i++;
+}
+if(!this.validatePrice(precio) ){
+  errors [i] = errorPrice;
+  console.log(errors[i])
+  i++;
+}
+return errors;
+  }
    guardar() {
       
-    if (!this.productoModel.nombre) {
+    var errors=[]=this.validationResult(this.productoModel.nombre,this.productoModel.clasificacion,this.productoModel.descripcion,this.productoModel.precio )
+    
+   /* if (!this.productoModel.nombre) {
        this.alertaNombre = true;
     }
     if (!this.productoModel.clasificacion) {
@@ -38,19 +88,14 @@ export class AgregarProductoComponent implements OnInit {
     }
     if (!this.productoModel.precio) {
       this.alertaPrecio = true; 
-    }
+    }*/
 
+    try {
+    if(errors.length==0){
 
-
-
-    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio ){
-      this.cargando = true;
-   
-      const idProductoGuardado= this.productosService.agregarProducto(this.productoModel);  
-
-    
-  
-      this.cargando = false;
+    this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio 
+      
+      this.productosService.agregarProducto(this.productoModel);  
       this.alert=true;
 
       this.route.queryParams.subscribe(params => {
@@ -58,8 +103,25 @@ export class AgregarProductoComponent implements OnInit {
  
     });
     this.router.navigate(["/home/"+this.email])
-    }   
+    }else{
+      this.error = true;
+      throw true;
+    }
+  }catch(error){
+    var i=0;
+    var termino = false;
+    while(!termino){
+    if(errors[i].length>0){
+      alert(errors[i]= errors[i])
+      i++;
+      
+    }else{
+      termino = true;
+    }
   }
+  }
+    }   
+  
   volver() {
     this.route.queryParams.subscribe(params => {
         this.email = params['user'];

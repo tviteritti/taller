@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterService, IRegister } from '../../SERVICES/register.service'
+import { IRegister } from '../../SERVICES/register.service'
 import { ClienteService } from '../../SERVICES/cliente.service'
 import {Router } from '@angular/router';
 import Auth from '@aws-amplify/auth';
@@ -21,17 +21,10 @@ export class RegisterComponent implements OnInit {
       direccion:"",
       apellido:""
   }
-  constructor(private RegisterService:RegisterService,private ClienteService:ClienteService, private router:Router) { }
-
+  constructor(private ClienteService:ClienteService, private router:Router) { }
+  ngOnInit(): void {
+  }
   alertaRegistro:boolean=false;
-
-  /*validateUserNameEqualsEmail(){
-    if (this.register.username.toLowerCase() !== this.register.email.toLowerCase()) {
-      return true;
-    }else{
-      return false;
-    }
-  }*/
 
    validateEmail = (email:string) => {
     return String(email)
@@ -65,11 +58,11 @@ export class RegisterComponent implements OnInit {
     var schema = new passwordValidator();
   
     schema
-    .is().min(8)                                    // Minimum length 8
-    .is().max(100)                                  // Maximum length 100
-    .has().uppercase()                              // Must have uppercase letters
-    .has().lowercase()                              // Must have lowercase letters
-    .has().digits(1)                                // Must have at least 2 digits
+    .is().min(8)                                    
+    .is().max(100)                                  
+    .has().uppercase()                              
+    .has().lowercase()                              
+    .has().digits(1)                               
     .has().not().spaces()
     .has().symbols()                          
     return schema.validate(pass)
@@ -79,7 +72,6 @@ export class RegisterComponent implements OnInit {
   }
   validationResult = (nombre: string, contraseña: string, apellido: string, direccion: string, email: string) => {
     var errors = [];
-    var errorUsername = "Cambiar username tiene que ser un mail valido "
     var errorEmail = "Email tiene que ser un mail valido "
     var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
     var errorName= "El campo nombre no puede estar vacio y no puede contener caracteres especiales"
@@ -93,13 +85,7 @@ export class RegisterComponent implements OnInit {
       console.log(errors[i])
       i++;
     }
-    /*if(!this.validateEmail(username)){
-  
-      errors[i]= errorUsername;
-      console.log(errors [i])
-      i++;
-  
-    }*/
+
     if(!this.validatePass(contraseña)){
    
       errors [i] = errorPassword;
@@ -107,13 +93,12 @@ export class RegisterComponent implements OnInit {
       i++;
       }
     if(!this.validateName(nombre)){
-      console.log("Pase por validacion de name ")
       errors [i] = errorName;
       console.log(errors[i])
       i++;
     }
     if(!this.validateLastName(apellido)){
-      console.log("Pase por validacion de apellido ")
+     
       errors [i] = errorLastName;
       console.log(errors[i])
       i++;
@@ -127,18 +112,13 @@ export class RegisterComponent implements OnInit {
     return errors;
   }
   
-  submit(){
 
-  }
-  ngOnInit(): void {
-  }
+  
   error = false;
   registerPost(){
     var errors=[]=this.validationResult(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email)
 
     try {
-
-
       if(errors.length==0){
       var user = Auth.signUp({
         username: this.register.email,
@@ -150,11 +130,8 @@ export class RegisterComponent implements OnInit {
       this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
       console.log({user});
       this.router.navigate(['login']);
-     /*  user.catch((data)=>{
-        alert(data)
-      }) */
     }else{
- 
+      this.error = true;
       throw true;
 
           }
@@ -164,7 +141,7 @@ export class RegisterComponent implements OnInit {
       var termino = false;
       while(!termino){
       if(errors[i].length>0){
-        alert(errors[i]= errors[i] + "/n")
+        alert(errors[i]= errors[i])
         i++;
         
       }else{
