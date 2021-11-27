@@ -23,6 +23,28 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+const validateName = (name) => {
+  return String(name)
+    .toLowerCase()
+    .match(
+      /^(?=(?:^\w))([A-Za-z ]+)(?<=[^ ])$/
+      );
+    //.match(/^(?!\s*$).+/)
+};
+const validateLastName = (apellido) => {
+  return String(apellido)
+    .toLowerCase()
+    .match(
+      /^(?=(?:^\w))([A-Za-z ]+)(?<=[^ ])$/
+      );
+};
+const validateAddress = (direccion) => {
+  return String(direccion)
+    .toLowerCase()
+    .match(
+      
+      /^(?=(?:^\w))([A-Za-z0-9 ]+)(?<=[^ ])$/    );
+};
 const validatePass = (pass) => {
   var schema = new passwordValidator();
 
@@ -44,24 +66,46 @@ const validationResult = (req) => {
   var errorUsername = "Cambiar username tiene que ser un mail valido "
   var errorEmail = "Cambiar email tiene que ser un mail valido "
   var errorPassword= "Error en la contraseña debe contener 1 dígito, 1 letra mayúscula, 1 letra minúscula, 1 caracter especial y el tamaño debe ser mayor a 8"
-  const { email, username, password } = req.body
+  var errorName= "El campo nombre no puede estar vacio y no puede contener caracteres especiales"
+  var errorLastName= "El campo apellido no puede estar vacio y no puede contener caracteres especiales"
+  var errorAddress= "El campo direccion no puede estar vacio y no puede contener caracteres especiales(solo letras y números)"
+  const { email, username, contraseña,nombre,apellido,direccion } = req.body
+  console.log("campo nombre " + nombre)
+  var i = 0;
   if(!validateEmail(email)){
   
-    errors[0]= errorEmail;
-    console.log(errors[0])
+    errors[i]= errorEmail;
+    console.log(errors[i])
+    i++;
   }
   if(!validateEmail(username)){
 
-    errors[1]= errorUsername;
-    console.log(errors [1])
+    errors[i]= errorUsername;
+    console.log(errors [i])
+    i++;
 
   }
-  if(!validatePass(password)){
+  if(!validatePass(contraseña)){
  
-    errors [2] = errorPassword;
-    console.log(errors[2])
+    errors [i] = errorPassword;
+    console.log(errors[i])
+    i++;
     }
-  
+  if(!validateName(nombre) ){
+    errors [i] = errorName;
+    console.log(errors[i])
+    i++;
+  }
+  if(!validateLastName(apellido) ){
+    errors [i] = errorLastName;
+    console.log(errors[i])
+    i++;
+  }
+  if(!validateAddress(direccion) ){
+    errors [i] = errorAddress;
+    console.log(errors[i])
+    i++;
+  }
   
   return errors;
 }
@@ -111,10 +155,23 @@ rutas.post("/obtenerIdvent", async (req, res) => {
       res.json(id);
 });
 rutas.post("/registro", async (req, res) => {
+    var errors=[]=validationResult(req)
     const {nombre,contraseña,apellido,direccion,email} = req.body;
+    if(errors.length==0){
      const cliente = await clienteModel.insertar(nombre,contraseña,apellido,direccion,email);
-     const venta = await ventaModel.insertar(cliente,0);
+     await ventaModel.insertar(cliente,0);
+     console.log("Registro exitoso ")
       res.json(cliente);
+    }
+    else{
+      
+      console.log("Fallo registro")
+      res.status(400).json({
+        message:"Problema en el registro analice sus campos",
+        errors: errors,
+      });
+      
+    }
   });
 
 
