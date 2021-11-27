@@ -9,7 +9,7 @@ export class ProductosService {
 
   url = '/api/product';
   
-  constructor(private http: HttpClient) { //antes estava el service
+  constructor(private http: HttpClient) { 
   }
 
   public async eliminarProducto(idProducto:any) {
@@ -18,10 +18,7 @@ export class ProductosService {
 
 
   public async agregarProducto(producto: Producto) {
-
-  
     return await this.http.post(this.url, producto).toPromise();
-    
   }
 
   public async obtenerProductos() {
