@@ -42,7 +42,9 @@
       <div class="product-grid">
         <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
       </div>
-     
+      <button (click)="logout()" type="submit"
+                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Logout</button>
+
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
