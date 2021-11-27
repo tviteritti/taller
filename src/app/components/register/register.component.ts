@@ -22,6 +22,14 @@ export class RegisterComponent implements OnInit {
 
   alertaRegistro:boolean=false;
 
+  validateUserNameEqualsEmail(){
+    if (this.register.username.toLowerCase() !== this.register.email.toLowerCase()) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   submit(){
 
@@ -30,15 +38,20 @@ export class RegisterComponent implements OnInit {
   }
   registerPost(){
     try {
+      if (this.validateUserNameEqualsEmail()) {
+        alert("el nombre de usuario debe ser igual al email")
+        return;
+      }
+
       var user = Auth.signUp({
-        username: this.register.username,
+        username: this.register.email,
         password: this.register.password,
         attributes: {
           email: this.register.email
         }
       });
       this.ClienteService.insertar(this.register.nombre, this.register.password, this.register.apellido, this.register.direccion, this.register.email).subscribe(data => { });
-      console.log({user});       
+      console.log({user});
       this.router.navigate(['login']);
     } catch (error) {
       this.alertaRegistro = true;

@@ -33,11 +33,15 @@ img{
   text-align: center;
  
 }
-
+.izquierda{
+  float: left;
+}
 
 .peque{
-width: 60%;
+width: 10%;
 margin: auto;
+float: right;
+margin-right: 100px;
 }
 
 .breath{

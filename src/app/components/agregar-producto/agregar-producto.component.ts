@@ -1,26 +1,26 @@
-
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {Producto} from "../../producto";
 import {ProductosService} from "../../SERVICES/productos.service";
-
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-agregar-producto',
   templateUrl: './agregar-producto.component.html',
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
-  productoModel = new Producto("", "","","","");
+  productoModel = new Producto("","","","","remera_negra_lisa.jpg");
+  email: string = '';
  
 
-  constructor(private productosService: ProductosService) {  }
+  constructor(private productosService: ProductosService,private router:Router,private route: ActivatedRoute) {  }
   alert:boolean=false;
   alertaNombre:boolean=false;
   alertaClasificacion:boolean=false;
   alertaDescripcion:boolean=false;
   alertaPrecio:boolean=false;
-  alertaFoto:boolean=false;
-
+ 
   public cargando = false;
   
   ngOnInit(): void {  }
@@ -39,27 +39,26 @@ export class AgregarProductoComponent implements OnInit {
       this.alertaPrecio = true; 
     }
 
-    if (!this.productoModel.foto) {
-      this.alertaFoto = true; 
-    }
 
 
-    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio && this.productoModel.foto){
+
+    else if ( this.productoModel.nombre && this.productoModel.clasificacion && this.productoModel.descripcion && this.productoModel.precio ){
       this.cargando = true;
-      // Guardamos producto
-      console.log(this.productoModel)
+   
       const idProductoGuardado= this.productosService.agregarProducto(this.productoModel);  
-      // Y luego las fotos
-      //const fd = new FormData();  
-      //fd.append("idProducto", idProductoGuardado);
+
     
   
       this.cargando = false;
-      //this.productoModel = new Producto("", "","","","");  
       this.alert=true;
 
+      this.route.queryParams.subscribe(params => {
+        this.email = params['user'];
+ 
+    });
+    this.router.navigate(["/home/"+this.email])
     }   
-    
+  
   }
 
     closeAlert(){
