@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     });
   }
   public total() {
-    
+
     let total = 0;
     this.carrito.forEach((p: { precio: number; cantidad: number;}) => total += p.precio*p.cantidad);
     return total;

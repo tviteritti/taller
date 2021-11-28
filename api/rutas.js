@@ -41,7 +41,7 @@ const validateAddress = (direccion) => {
   return String(direccion)
     .toLowerCase()
     .match(
-      
+
       /^(?=(?:^\w))([A-Za-z0-9 ]+)(?<=[^ ])$/    );
 };
 const validatePass = (pass) => {
@@ -54,11 +54,11 @@ const validatePass = (pass) => {
   .has().lowercase()                              // Must have lowercase letters
   .has().digits(1)                                // Must have at least 2 digits
   .has().not().spaces()
-  .has().symbols()                          
+  .has().symbols()
   return schema.validate(pass)
- 
 
- 
+
+
 }
 
 const validatePrice = (price) => {
@@ -80,7 +80,7 @@ const validationResult = (req) => {
   console.log("campo nombre " + nombre)
   var i = 0;
   if(!validateEmail(email)){
-  
+
     errors[i]= errorEmail;
     console.log(errors[i])
     i++;
@@ -93,7 +93,7 @@ const validationResult = (req) => {
 
   }
   if(!validatePass(contraseña)){
- 
+
     errors [i] = errorPassword;
     console.log(errors[i])
     i++;
@@ -113,7 +113,7 @@ const validationResult = (req) => {
     console.log(errors[i])
     i++;
   }
-  
+
   return errors;
 }
 const validationResultProduct = (req) => {
@@ -149,17 +149,20 @@ const validationResultProduct = (req) => {
   return errors;
 }
 
-rutas.get("/product",async (req, res) => {
+rutas.get("/product", (req, res) => {
+        productModel.obtenerConFotos().then((producto)=>{
+        res.json(producto);
+      })
 
-      const producto = await productModel.obtenerConFotos();
-      res.json(producto);
 });
-rutas.post("/product",async (req, res) => {
+rutas.post("/product", (req, res) => {
     var errors=[]=validationResultProduct(req)
     if(errors.length==0){
     const producto = req.body;
-    const respuesta = await productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio,producto.foto);
-    res.json(respuesta);
+    productModel.insertar(producto.nombre,producto.clasificacion, producto.descripcion, producto.precio,producto.foto).then((respuesta)=>{
+      res.json(respuesta);
+    })
+
     }else{
       console.log("Fallo agregar producto")
       res.status(400).json({
@@ -168,106 +171,127 @@ rutas.post("/product",async (req, res) => {
       });
     }
 });
-rutas.get("/ventas", async (req, res) => {
-    const ventas = await ventaModel.obtener();
-    res.json(ventas);
+rutas.get("/ventas", (req, res) => {
+      ventaModel.obtener().then((ventas)=>{
+      res.json(ventas);
+    })
+
   });
 
-rutas.post("/detalle_venta", async (req, res) => {
+rutas.post("/detalle_venta", (req, res) => {
     if (!req.query.id) {
         res.end("Not found");
         return;
       }
       const idVenta = req.query.id;
-      const venta = await ventaModel.obtenerPorId(idVenta);
-      venta.productos = await ventaModel.obtenerProductosVendidos(idVenta);
-      res.json(venta);
+      ventaModel.obtenerPorId(idVenta).then((venta)=>{
+        res.json(venta);
+      })
+      /*este parece que no hace nada
+       venta.productos = await ventaModel.obtenerProductosVendidos(idVenta);
+       */
+
+
   });
 
-rutas.post("/carritoCompra", async (req, res) => {
+rutas.post("/carritoCompra", (req, res) => {
     const id = req.body.id;
-     const producto = await ventaModel.obtenerProductosVendidos(id);
+     ventaModel.obtenerProductosVendidos(id).then((producto)=>{
       res.json(producto);
+     })
+
 });
-  
-rutas.post("/obtenerIdcliente", async (req, res) => {
+
+rutas.post("/obtenerIdcliente",  (req, res) => {
   const email = req.body.email;
-     const id = await clienteModel.obtenerId(email);
+      clienteModel.obtenerId(email).then((id)=>{
       res.json(id);
+     })
+
   });
-rutas.post("/obtenerIdvent", async (req, res) => {
+
+rutas.post("/obtenerIdvent", (req, res) => {
     const idC = req.body.id;
-     const id = await ventaModel.obtenerIdVenta(idC);
+      ventaModel.obtenerIdVenta(idC).then((id)=>{
       res.json(id);
+     })
+
 });
-rutas.post("/registro", async (req, res) => {
+rutas.post("/registro", (req, res) => {
     var errors=[]=validationResult(req)
     const {nombre,contraseña,apellido,direccion,email} = req.body;
     if(errors.length==0){
-     const cliente = await clienteModel.insertar(nombre,contraseña,apellido,direccion,email);
-     await ventaModel.insertar(cliente,0);
-      res.json(cliente);
+     const cliente =  clienteModel.insertar(nombre,contraseña,apellido,direccion,email).then((cliente)=>{
+       ventaModel.insertar(cliente,0);
+       res.json(cliente);
+     })
     }
     else{
-      
       console.log("Fallo registro")
       res.status(400).json({
         message:"Problema en el registro analice sus campos",
         errors: errors,
       });
-      
+
     }
   });
 
-
-rutas.post("/carrito/agregar", async (req, res) => {
+  rutas.post("/carrito/agregar", (req,res)=>{
     const { idV, idP } = req.body;
-    let cantidad = 0;
-    let producto;
-  
-  cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
-  if (cantidad !== undefined && cantidad !== NaN) {
-    cantidad = cantidad.cantidad
-  } else {
-    cantidad = 0;
-  }
-    
-  cantidad++;
-    if (cantidad === 1) {
-      producto = await productoVendidoModel.insertar(idV,idP,cantidad);
-      
-    } else {
-      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);    
-    }
-      res.json(producto);
-  });
-
-  rutas.post("/carrito/eliminar", async (req, res) => {
-    const { idV, idP } = req.body;
-    let cantidad = 0;
-    let producto;
-    
-    cantidad = await productoVendidoModel.obtenerCantidad(idV, idP);
+    productoVendidoModel.obtenerCantidad(idV, idP).then((cantidad)=>{
       if (cantidad !== undefined && cantidad !== NaN) {
-      cantidad = cantidad.cantidad
+        cantidad = cantidad.cantidad
       } else {
-        res.json('no hay en el carrito');
-        return;
+        cantidad = 0;
+      }
+      cantidad++;
+        if (cantidad === 1) {
+          productoVendidoModel.insertar(idV,idP,cantidad).then((producto)=>{
+            res.json(producto);
+          })
+        } else {
+          productoVendidoModel.insertarCantidad(idV,idP,cantidad).then((producto)=>{
+            res.json(producto);
+          })
+        }
+    }).catch(error =>{
+      console.log(error);
+    })
     }
-      
+  )
+
+  rutas.post("/carrito/eliminar", (req, res)=>{
+    const { idV, idP } = req.body;
+    let cantidad = 0;
+    let producto;
+
+    productoVendidoModel.obtenerCantidad(idV, idP).then((cantidad)=>{
+      if (cantidad !== undefined && cantidad !== NaN) {
+        cantidad = cantidad.cantidad
+        } else {
+          res.json('no hay en el carrito');
+          return;
+      }
+
     cantidad--;
+
     if (cantidad === 0) {
-      producto = await productoVendidoModel.eliminar(idV,idP,cantidad);
-      
+      productoVendidoModel.eliminar(idV,idP,cantidad).then((producto)=>{
+        res.json(producto);
+      })
     } else {
-      producto = await productoVendidoModel.insertarCantidad(idV,idP,cantidad);    
+        productoVendidoModel.insertarCantidad(idV,idP,cantidad).then((producto)=>{
+        res.json(producto);
+      })
     }
-      res.json(producto);
-  });
-  rutas.post("/terminarCompra", async (req, res) => {
+  })
+});
+
+  rutas.post("/terminarCompra",  (req, res)=>{
     const idV = req.body.idV;
-    const productoVenta = await ventaModel.terminarCompraProductoVendido(idV);
+    ventaModel.terminarCompraProductoVendido(idV).then((productoVenta)=>{
       res.json(productoVenta);
+    })
 });
 
 module.exports = rutas;
