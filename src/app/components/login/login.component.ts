@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
       if(tokens != null){
         this.cookieService.set('token_access', tokenDeRespuesta, 4, '/' );
         this.router.navigate(['home/'+this.user.email]);
-
       }
     }catch (error){
       this.alertaLogin=true;
