@@ -1,9 +1,11 @@
 <div class="contenedor-padre">
   <mat-toolbar class="barra" color="primary">
     <mat-toolbar-row>
-      <button (click)="cajon.toggle()" mat-icon-button>
-        <mat-icon>menu</mat-icon>
-      </button>
+      <div *ngIf="email ==='admin@admin.com'">
+        <button (click)="cajon.toggle()" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
       <span>
         DressCode
       </span>
@@ -32,8 +34,8 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <mat-sidenav-container class="contenido">
-    <mat-sidenav style="min-width: 300px;" #cajon opened mode="side">
-      <div *ngIf="email ==='admin@admin.com'">
+    <mat-sidenav  #cajon opened mode="side">
+      <div *ngIf="email ==='admin@admin.com'" style="min-width: 300px;">
         <mat-nav-list>
           <a mat-list-item href="/agregarProducto?user={{email}}" >
             <mat-icon color="primary">add_circle</mat-icon>
@@ -42,7 +44,7 @@
           <mat-divider></mat-divider>
         </mat-nav-list>
       </div>
-    </mat-sidenav>
+      </mat-sidenav>
     <mat-sidenav-content class="padding-10">
       <div class="product-grid">
         <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
