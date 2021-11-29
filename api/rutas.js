@@ -85,12 +85,14 @@ const validationResult = (req) => {
     console.log(errors[i])
     i++;
   }
-  if(!validateEmail(username)){
+  if(username !== undefined && username !==null){
+    if(!validateEmail(username)){
 
-    errors[i]= errorUsername;
-    console.log(errors [i])
-    i++;
+      errors[i]= errorUsername;
+      console.log(errors [i])
+      i++;
 
+    }
   }
   if(!validatePass(contraseña)){
 
@@ -212,7 +214,7 @@ rutas.post("/obtenerIdcliente",  (req, res) => {
 
 rutas.post("/obtenerIdvent", (req, res) => {
     const idC = req.body.id;
-      ventaModel.obtenerIdVenta(idC).then((id)=>{
+  ventaModel.obtenerIdVenta(idC).then((id) => {
       res.json(id);
      })
 
