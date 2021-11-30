@@ -1,7 +1,18 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{producto.nombre | uppercase}} </mat-card-title>
-    <mat-card-subtitle>{{producto.precio | currency}}</mat-card-subtitle>
+    <div class="container">
+      <div style="float: left;"> 
+        <mat-card-title>{{producto.nombre | uppercase}} </mat-card-title>
+        <mat-card-subtitle>{{producto.precio | currency}}</mat-card-subtitle>
+      </div>
+  
+      <div style="float: right;">
+        <button (click)="agregarAlCarrito(producto.id)" class="carrito" mat-raised-button color="accent" style="margin-right: 10px;">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </div>
+    </div>
+    
   </mat-card-header>
   <div class="contenedor-imagen">
 
@@ -14,17 +25,6 @@
   </mat-card-content>
  
     
-    <div style="display: inline-block; vertical-align: top">
-
-      
-      <button (click)="agregarAlCarrito(producto.id)" class="carrito" mat-raised-button color="accent" style="margin-right: 10px;">
-      
-        <mat-icon>add_shopping_cart</mat-icon>
-      </button>
-      <button (click)="quitarDelCarrito(producto.id)" class="carrito" mat-raised-button color="accent">
-        <mat-icon>delete</mat-icon>
-        
-      </button>
-    </div>
+ 
 
 </mat-card>

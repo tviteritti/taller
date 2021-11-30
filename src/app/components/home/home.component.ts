@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { VentaService } from '../../SERVICES/venta.service';
 import { ProductosService } from '../../SERVICES/productos.service';
 import { ClienteService } from '../../SERVICES/cliente.service';
@@ -13,7 +13,8 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit  {
+
 
   productos: any = [];
   carrito: any = [];
@@ -47,6 +48,9 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+
+
   public total() {
 
     let total = 0;

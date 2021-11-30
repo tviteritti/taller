@@ -3,7 +3,7 @@
 }
 
 .respiro{
-  padding-left: 20px;
+  text-align: center;
 }
 
 img {
@@ -17,5 +17,10 @@ img {
   display: flex;
   justify-content: center;
 
+}
+
+.container{
+  display: flex;
+  justify-content:space-between;
 }
 
