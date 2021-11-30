@@ -66,7 +66,7 @@ export class TerminarCompraComponent implements OnInit {
   public agregarAlCarrito(id:number) {
     console.log('agregar al carrito');
     this.carritoService.agregarAlCarrito(this.idVenta, id).subscribe(data => { });
-    
+    window.location.reload();
   }
   public quitarDelCarrito(id:number) {
     console.log('agregar al carrito');
