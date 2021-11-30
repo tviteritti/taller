@@ -12,26 +12,26 @@ export class ProductosService {
   constructor(private http: HttpClient) { 
   }
 
-  public async eliminarProducto(idProducto:any) {
-    return await this.http.delete(this.url + "?id=".concat(idProducto));
+  public  eliminarProducto(idProducto:any) {
+    return  this.http.delete(this.url + "?id=".concat(idProducto));
   }
 
 
-  public async agregarProducto(producto: Producto) {
-    return await this.http.post(this.url, producto).toPromise();
+  public  agregarProducto(producto: Producto) {
+    return  this.http.post(this.url, producto).toPromise();
   }
 
-  public async obtenerProductos() {
+  public  obtenerProductos() {
     
-    return await this.http.get(this.url);
+    return  this.http.get(this.url);
   }
 
-  public async obtenerProductosConFotos() {
-    return await this.http.get("/productos_con_fotos");
+  public  obtenerProductosConFotos() {
+    return  this.http.get("/productos_con_fotos");
   }
 
-  public async obtenerProductoConFotosPorId(idProducto:any) {
-    return await this.http.get(this.url + "?id=".concat(idProducto));
+  public  obtenerProductoConFotosPorId(idProducto:any) {
+    return  this.http.get(this.url + "?id=".concat(idProducto));
   }
  
   public obtener() {
