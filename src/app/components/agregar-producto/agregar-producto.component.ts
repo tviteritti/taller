@@ -10,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
-  productoModel = new Producto("","","","","remera_negra_lisa.jpg");
+  productoModel = new Producto("","","","","");
   email: string = '';
  
 
@@ -34,6 +34,7 @@ export class AgregarProductoComponent implements OnInit {
         );
         
   };
+
    validatePrice = (price:string) => {
     return String(price)
       .toLowerCase()
