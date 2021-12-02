@@ -5,3 +5,8 @@ input[type="file"] {
   .prolijo{
     margin-left: 10px;
   }
+
+  
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
