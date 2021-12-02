@@ -33,8 +33,8 @@
       </a>
     </mat-toolbar-row>
   </mat-toolbar>
-<app-banner></app-banner>
 
+  <app-banner></app-banner>
 
   <mat-sidenav-container class="contenido">
     <mat-sidenav  #cajon opened mode="side">
@@ -49,11 +49,13 @@
       </div>
       </mat-sidenav>
     <mat-sidenav-content class="padding-10">
-      <div class="product-grid">
-        <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
-      </div>
+    
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+  <div class="product-grid">
+    <app-tarjeta-producto [producto]="producto" *ngFor="let producto of productos"></app-tarjeta-producto>
+  </div>
 
 </div>

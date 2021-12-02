@@ -29,27 +29,11 @@ export class BannerComponent implements OnInit, AfterViewInit  {
     const  swiper = new Swiper('.swiper-container', 
       {
         speed:2000,
-        direction: 'horizontal',
         navigation: 
         {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
-        },
-        pagination: 
-        {
-          el: '.swiper-pagination',
-          dynamicBullets: true,
-        },
-        zoom: true,
-        keyboard: 
-        {
-          enabled: true,
-          onlyInViewport: false,
-        },
-        mousewheel: 
-        {
-          invert: true,
-        },
+        },   
         autoplay: 
         {
           delay: 5000,
