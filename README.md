@@ -1,27 +1,39 @@
-# Taller
+# Taller Web II
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
+El proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5. y node version 16.13.0
 
-## Development server
+## Acerca del proyecto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Se trata de un e-commerce de venta de indumentaria del tipo B2C cuyo target son usuarios en búsqueda de nuevas y exclusivas prendas 
 
-## Code scaffolding
+### Requisitos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Deberás tener el entorno apto para Angular y Node
 
-## Build
+### Instalación
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clonar el repo
+   ```sh
+   git clone https://github.com/tviteritti/taller.git
+   ```
+3. Instalar los paquetes NPM
+   ```sh
+   npm install
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-## Running end-to-end tests
+<!-- CONTACT -->
+## Integrantes
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+Anna Romanczuk:  [https://github.com/atromanczuk](https://github.com/atromanczuk)
+<br>
+Gerónimo Rodriguez: [https://github.com/focho27](https://github.com/focho27)
+<br>
+Nicolás Herrera: [https://github.com/nherreravantek](https://github.com/nherreravantek)
+<br>
+Tomás Viteritti: [https://github.com/tviteritti](https://github.com/tviteritti)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+

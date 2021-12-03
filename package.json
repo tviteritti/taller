@@ -25,6 +25,7 @@
     "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "ngx-cookie-service": "^13.0.1",
+    "parcel-bundler": "^1.6.1",
     "password-validator": "^5.2.1",
     "rxjs": "~6.6.0",
     "swiper": "^7.3.1",

@@ -32,6 +32,9 @@ import { TerminarCompraComponent } from './components/terminar-compra/terminar-c
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { SwiperModule } from 'swiper/angular';
+import{NgbModule} from '@ng-bootstrap/ng-bootstrap'
+
+
 
 //import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
@@ -56,7 +59,7 @@ Amplify.configure({
     TarjetaProductoComponent,
     TerminarCompraComponent,
     AgregarProductoComponent,
-    BannerComponent
+    BannerComponent,
    // PageNotFoundComponent,
   ],
   imports: [
@@ -80,7 +83,8 @@ Amplify.configure({
     MatChipsModule,
     MatStepperModule,
     MatFormFieldModule,
-    SwiperModule
+    SwiperModule,
+    NgbModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

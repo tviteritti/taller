@@ -1,3 +1,21 @@
+<mat-toolbar class="barra" color="primary">
+  <mat-toolbar-row>
+  
+    <span>
+      DressCode
+    </span>
+    <span class="example-fill-remaining-space"></span>
+    
+  
+    <a style="margin-left: 10px" mat-raised-button color="primary" href="https://www.unlam.edu.ar/" target="_blank">
+      <mat-icon>help_outline</mat-icon>
+    </a>
+    <a (click)="logout()" style="margin-left: 10px" mat-raised-button color="primary" >
+      <mat-icon>logout</mat-icon>
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>  
+  
   <div class="container">
     <div class="col-auto p-5">
       <h1>Agregar producto</h1>
@@ -36,13 +54,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div> 
-
-        
-   
-     
       </div>
     
-
       <div class="form-group">
         <div class="col-10">
           <label for="nombre">Nombre</label>
@@ -64,37 +77,35 @@
           <textarea class="form-control" id="descripcion" [(ngModel)]="productoModel.descripcion" rows="3"></textarea>
         </div>
       </div>
-
-      <div class="col-10">
-        <div class="input-group mb-3">
-
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
+              
+        <div class="col-10">
+          <div class="form-group">
+            <label for="foto">Modelo</label>
+            <select class="form-control" name="foto" id="foto" [(ngModel)]="productoModel.foto" >
+                <option value="Bitcoin.jpg">Bitcoin</option>
+                <option value="CamisaVerde.png">Camisa Verde</option>
+                <option value="Forest.jpg">Forest</option>
+                <option value="RemeraBlancaLisa.png">Remera Blanca Lisa</option>
+                <option value="RemeraNegraLisa.png">Remera Negra Lisa</option>
+                <option value="Spinner.jpg">Spinner</option>
+                <option value="Story.jpg">Story</option>
+                <option value="Tornado.jpg">Tornado</option>
+            </select>
           </div>
-          <input type="number" class="form-control" [(ngModel)]="productoModel.precio">
         </div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-10">  
-          <label for="foto">Elige tu remera:</label>
-        <select name="foto" id="foto" [(ngModel)]="productoModel.foto">
-          <option value="Bitcoin.jpg">Bitcoin</option>
-          <option value="CamisaVerde.png">Camisa Verde</option>
-          <option value="Forest.jpg">Forest</option>
-          <option value="RemeraBlancaLisa.png">Remera Blanca Lisa</option>
-          <option value="RemeraNegraLisa.png">Remera Negra Lisa</option>
-          <option value="Spinner.jpg">Spinner</option>
-          <option value="Story.jpg">Story</option>
-          <option value="Tornado.jpg">Tornado</option>
-       </select>
+   
+        <div class="col-10">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="number" class="form-control" [(ngModel)]="productoModel.precio">
+          </div>
         </div>
-      </div>
-
 
       <div class="col-10">
-      <div class="float-right ">
-        <button class="prolijo " (click)="volver()" mat-raised-button>Volver</button>
+      <div class="float-right">
+        <button class="prolijo" (click)="volver()" mat-raised-button>Volver</button>
         <button class="prolijo" mat-raised-button color="primary" texto="Guardar" (click)="guardar()">Guardar</button>
       </div>
     </div>
