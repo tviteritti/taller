@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
 
    async login(){
     try {
-
       var user = await Auth.signIn(this.user.email.toString(), this.user.password.toString());
       var tokens =  user.signInUserSession;
       var tokenDeRespuesta = user.signInUserSession.accessToken.jwtToken;

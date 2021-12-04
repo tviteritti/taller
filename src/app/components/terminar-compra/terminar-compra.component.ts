@@ -29,9 +29,9 @@ export class TerminarCompraComponent implements OnInit {
   };
   carrito: any = [];
 
-  public async revisarYTerminar(stepper: any) {
- 
-    this.VentaService.terminarCompra(this.idVenta).subscribe(data => { });
+  public revisarYTerminar(stepper: any) {
+
+    this.VentaService.terminarCompra(this.idVenta).subscribe(() => { });
 
     this.compraTerminada=true;
     stepper.next();
@@ -46,12 +46,12 @@ export class TerminarCompraComponent implements OnInit {
   async ngOnInit() {
     this.email = this.route.snapshot.params['email'];
 
-    this.ClienteService.obtenerId(this.email).subscribe(data => {   
+    this.ClienteService.obtenerId(this.email).subscribe(data => {
       this.idCliente = data;
       this.idCliente = this.idCliente.id;
 
       if(this.idCliente!= null) {
-        this.VentaService.obtenerIdVenta(this.idCliente).subscribe(data => {   
+        this.VentaService.obtenerIdVenta(this.idCliente).subscribe(data => {
           this.idVenta = data;
           this.idVenta = this.idVenta.id;
           if (this.idVenta != null) {
@@ -74,12 +74,12 @@ export class TerminarCompraComponent implements OnInit {
     window.location.reload();
   }
 
-  public terminarYRedirijir(){      
+  public terminarYRedirijir(){
     this.router.navigate(['home/' + this.email]).then(()=>{
       window.location.reload();
     })    ;
   }
-  public rutaImagen(nombre:string){      
+  public rutaImagen(nombre:string){
     return "../../../assets/fotos_productos/"+ nombre;
   }
 

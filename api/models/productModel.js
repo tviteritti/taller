@@ -12,7 +12,7 @@ module.exports = {
             (?,?,?,?)`,
         [nombre,clasificacion,descripcion,precio], (err, resultados) => {
           if (err) reject(err);
-          else{ 
+          else{
             this.insertarFoto(resultados.insertId,foto)
             resolve(resultados.insertId)};
         });
@@ -22,7 +22,7 @@ module.exports = {
     });
   },
   insertarFoto(id_producto,foto) {
-   
+
     return new Promise((resolve, reject) => {
       conexion.query(`insert into fotos_productos
             (id_producto,foto)
@@ -54,18 +54,23 @@ module.exports = {
     });
   },
   obtenerConFotos() {
+
     return new Promise((resolve, reject) => {
-      conexion.query(`select * from productos`,
-        async (err, resultados) => {
+
+      conexion.query(`select * from productos
+
+        inner join fotos_productos on productos.id = fotos_productos.id_producto;`,
+
+         (err, resultados) => {
+
           if (err) reject(err);
-          else {
-            for (let x = 0; x < resultados.length; x++) {
-              resultados[x].foto = await this.obtenerPrimeraFoto(resultados[x].id);
-            }
-            resolve(resultados);
-          }
+
+          else resolve(resultados);
+
         });
+
     });
+
   },
    obtenerPorId(id) {
     return new Promise((resolve, reject) => {
